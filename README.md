@@ -9,7 +9,7 @@
     brew install cutest --HEAD [--with-matlab]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
-      echo ". $(brew --prefix $f)/$f.bashrc >> ~/.bashrc"; \
+      echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
 
 ## What's This?
@@ -48,7 +48,7 @@ Now we can install the formulae in order:
 The last thing to do is to add all the requisite environment variables to our `~/.bashrc`. Each package provides a mini `bashrc` that contains the relevant definitions and can be sourced. They can all be sourced in one command:
 
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
-      echo ". $(brew --prefix $f)/$f.bashrc >> ~/.bashrc"; \
+      echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
 
 If you installed CUTEst with Matlab support, you also need to define an environment variable pointing to your local Matlab installation, e.g.,
