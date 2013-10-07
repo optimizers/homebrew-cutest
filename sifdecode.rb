@@ -4,7 +4,7 @@ class Sifdecode < Formula
   homepage 'http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki'
   head 'http://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk', :using => :svn
 
-  depends_on 'homebrew/cutest/archdefs' => :build
+  depends_on 'dpo/cutest/archdefs' => :build
   depends_on :fortran
 
   def install

@@ -6,8 +6,8 @@ class Cutest < Formula
 
   option 'with-matlab', 'Compile with Matlab support'
 
-  depends_on 'homebrew/cutest/archdefs' => :build
-  depends_on 'homebrew/cutest/sifdecode' => :build
+  depends_on 'dpo/cutest/archdefs' => :build
+  depends_on 'dpo/cutest/sifdecode' => :build
   depends_on 'homebrew/versions/gcc43' => [:build, 'enable-fortran'] if build.with? 'matlab' # Matworks only support gfortran 4.3.
   depends_on :fortran
   env :std if build.with? 'matlab'
