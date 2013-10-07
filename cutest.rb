@@ -1,0 +1,80 @@
+require 'formula'
+
+class Cutest < Formula
+  homepage 'http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki'
+  head 'http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk', :using => :svn
+
+  option 'with-matlab', 'Compile with Matlab support'
+
+  depends_on 'homebrew/cutest/archdefs' => :build
+  depends_on 'homebrew/cutest/sifdecode' => :build
+  depends_on 'homebrew/versions/gcc43' => [:build, 'enable-fortran'] if build.with? 'matlab' # Matworks only support gfortran 4.3.
+  depends_on :fortran
+  env :std if build.with? 'matlab'
+
+  def install
+    ENV.deparallelize
+    machine, mac = (MacOS.prefer_64_bit?) ? ['mac64', '13'] : ['mac', '12']
+    toolset = (build.with? 'matlab') ? '1' : '2'
+    if build.with? 'matlab'
+      ENV['FC'] = 'gfortran-4.3'
+      ENV['CC'] = 'gcc-4.3'
+    end
+
+    Pathname.new('osx.input').write <<-EOF.undent
+      #{mac}
+      2
+      #{toolset}
+      3
+      nnydy
+    EOF
+
+    ENV['ARCHDEFS'] = Formula.factory('archdefs').prefix
+    ENV['SIFDECODE'] = Formula.factory('sifdecode').libexec
+    system "./install_cutest < osx.input"
+
+    # We only want certain links in /usr/local/bin.
+    libexec.install Dir['*']
+    ['cutest2matlab', 'runcutest'].each do |f|
+      bin.install_symlink "#{libexec}/bin/#{f}"
+    end
+
+    include.install_symlink Dir["#{libexec}/include/*"]
+    man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
+    man3.install_symlink Dir["#{libexec}/man/man3/*.3"]
+    doc.install_symlink Dir["#{libexec}/doc/*"]
+    lib.install_symlink "#{libexec}/objects/#{machine}.osx.gfo/double/libcutest.a"
+    ln_sf "#{libexec}/objects/#{machine}.osx.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
+
+    s = <<-EOS.undent
+    export CUTEST=#{libexec}
+    export MYARCH=#{machine}.osx.gfo
+    EOS
+    if build.with? 'matlab'
+      s += <<-EOS.undent
+      export MYMATLABARCH=#{machine}.osx.gfo
+      export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
+      EOS
+    end
+    Pathname.new("#{prefix}/cutest.bashrc").write s
+  end
+
+  def caveats
+    s = <<-EOS.undent
+    In your ~/.bashrc, add
+    . #{prefix}/cutest.bashrc
+    EOS
+    if build.with? 'matlab'
+      s += <<-EOS.undent
+        export MYMATLAB=/path/to/your/matlab
+      EOS
+    end
+  end
+
+  def test
+    ['gen77', 'gen90', 'genc'].each do |pkg|
+      system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
+    end
+    ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
+  end
+end
