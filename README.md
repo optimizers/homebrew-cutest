@@ -25,7 +25,8 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 ### Disadvantages
 
 * Only one architecture of SIFDecode and CUTEst can be built
-* Cannot upgrade using usual commands
+* Cannot easily select esoteric compilers
+* Cannot upgrade using usual commands (for now)
 
 ## Installing
 
@@ -50,11 +51,19 @@ The last thing to do is to add all the requisite environment variables to our `~
       echo ". $(brew --prefix $f)/$f.bashrc >> ~/.bashrc"; \
     done
 
+If you installed CUTEst with Matlab support, you also need to define an environment variable pointing to your local Matlab installation, e.g.,
+
+    export MYMATLAB=/Applications/Matlab/MATLAB_R2012a.app
+
 ## Testing
 
 You can check that everything works as intended using:
 
     brew test sifdecode
     brew test cutest
+
+## Updating
+
+Every time the formulae are updated, `brew update` will let you know. You may then reinstall them using `brew reinstall sifdecode --HEAD`, etc. The software will not be automatically upgraded because the formulae are currently "head only", meaning that they pull directly from the subversion repository instead of fetching a released distribution (e.g., `sifdecode-1.0.tar.gz`). This is only temporary as we are planning to release distributions in the near future. Once that is done, updating will be easier.
 
 Enjoy!
