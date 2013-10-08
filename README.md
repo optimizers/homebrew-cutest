@@ -5,7 +5,7 @@
     brew tap dpo/cutest
     brew install archdefs --HEAD
     brew install sifdecode --HEAD
-    brew tap homebrew/versions   # If you want Matlab support
+    brew tap homebrew/versions   # If you want Matlab support.
     brew install cutest --HEAD [--with-matlab]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
@@ -27,7 +27,7 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 
 * Only one architecture of SIFDecode and CUTEst can be built
 * Cannot easily select esoteric compilers
-* Cannot upgrade using usual commands (for now)
+* Cannot upgrade using usual commands (for now).
 
 ## Installing
 
@@ -35,7 +35,7 @@ Brew taps are repositories of Homebrew formulae. In order to use this one, you f
 
     brew tap dpo/cutest
 
-If you will require Matlab support in CUTEst, you also need to tap a repository that gives access to gcc and gfortran 4.3 as those are the only ones supported by the Mathworks on OSX:
+If you will require Matlab support in CUTEst, you also need to tap [homebrew/versions](https://github.com/Homebrew/homebrew-versions), a repository that gives access to gcc and gfortran 4.3 as those are [the only ones supported by the Mathworks on OSX](http://www.mathworks.com/support/compilers/R2013b/index.html?sec=maci64):
 
     brew tap homebrew/versions
 
