@@ -20,7 +20,8 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 
 * One simple command to install each tool: `brew install tool --HEAD`
 * No need to tweak your `PATH`, `LD_LIBRARY_PATH`, `MANPATH` and so forth
-*
+* `libsifdecode`, `libcuter` and `libcuter_single` are available directly in `/usr/local/lib` so linking them in is a simple matter of adding `-lsifdecode`, `-lcuter` or `-lcuter_single`
+* installation of a Matlab-friendly compiler is taken in charge.
 
 ### Disadvantages
 
