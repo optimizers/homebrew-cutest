@@ -4,21 +4,8 @@ require 'formula'
 # This should be available in Homebrew by default in the near future.
 
 class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def fetch_repo target, url, revision=nil, ignore_externals=false
-    # Use "svn up" when the repository already exists locally.
-    # This saves on bandwidth and will have a similar effect to verifying the
-    # cache as it will make any changes to get the right revision.
-    svncommand = target.directory? ? 'up' : 'checkout'
-    args = ['svn', svncommand]
-    args << '--username'
-    args << 'anonymous'
-    # SVN shipped with XCode 3.1.4 can't force a checkout.
-    args << '--force' unless MacOS.version == :leopard
-    args << url unless target.directory?
-    args << target
-    args << '-r' << revision if revision
-    args << '--ignore-externals' if ignore_externals
-    quiet_safe_system(*args)
+  def quiet_safe_system *args
+    super *args + ['--username', 'anonymous']
   end
 end
 
