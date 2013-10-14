@@ -48,10 +48,10 @@ class Cutest < Formula
       bin.install_symlink "#{libexec}/bin/#{f}"
     end
 
-    include.install_symlink Dir["#{libexec}/include/*"]
+    include.install_symlink Dir["#{libexec}/include/*.h"]
     man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
     man3.install_symlink Dir["#{libexec}/man/man3/*.3"]
-    doc.install_symlink Dir["#{libexec}/doc/*"]
+    doc.install_symlink Dir["#{libexec}/doc/README*"], "#{libexec}/doc/pdf"
     lib.install_symlink "#{libexec}/objects/#{machine}.osx.gfo/double/libcutest.a"
     ln_sf "#{libexec}/objects/#{machine}.osx.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
 
