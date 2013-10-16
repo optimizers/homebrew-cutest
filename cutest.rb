@@ -23,12 +23,9 @@ class Cutest < Formula
 
   def install
     ENV.deparallelize
+    ENV.fortran
     machine, mac = (MacOS.prefer_64_bit?) ? ['mac64', '13'] : ['mac', '12']
     toolset = (build.with? 'matlab') ? '1' : '2'
-    if build.with? 'matlab'
-      ENV['FC'] = 'gfortran-4.3'
-      ENV['CC'] = 'gcc-4.3'
-    end
 
     Pathname.new('osx.input').write <<-EOF.undent
       #{mac}
