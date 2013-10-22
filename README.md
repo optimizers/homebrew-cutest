@@ -68,3 +68,7 @@ You can check that everything works as intended using:
 Every time the formulae are updated, `brew update` will let you know. You may then reinstall them using `brew reinstall sifdecode --HEAD`, etc. The software will not be automatically upgraded because the formulae are currently "head only", meaning that they pull directly from the subversion repository instead of fetching a released distribution (e.g., `sifdecode-1.0.tar.gz`). This is only temporary as we are planning to release distributions in the near future. Once that is done, updating will be easier.
 
 Enjoy!
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dpo/homebrew-cutest/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
