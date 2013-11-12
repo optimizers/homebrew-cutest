@@ -54,7 +54,6 @@ class Cutest < Formula
 
     s = <<-EOS.undent
     export CUTEST=#{libexec}
-    export MYARCH=#{machine}.osx.gfo
     EOS
     if build.with? 'matlab'
       s += <<-EOS.undent
