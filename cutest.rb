@@ -74,6 +74,7 @@ class Cutest < Formula
         export MYMATLAB=/path/to/your/matlab
       EOS
     end
+    return s
   end
 
   def test
