@@ -31,7 +31,7 @@ class Cutest < Formula
       #{mac}
       2
       #{toolset}
-      3
+      4
       nnydy
     EOF
 
