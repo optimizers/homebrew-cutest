@@ -72,6 +72,10 @@ class Cutest < Formula
     if build.with? 'matlab'
       s += <<-EOS.undent
         export MYMATLAB=/path/to/your/matlab
+
+        Please also look at
+          #{share}/doc/README.osx
+        to set up your ~/.mexopts.sh.
       EOS
     end
     return s
