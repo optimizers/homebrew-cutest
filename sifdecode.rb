@@ -15,6 +15,7 @@ class Sifdecode < Formula
 
   depends_on 'dpo/cutest/archdefs' => :build
   depends_on :fortran
+  env :std
 
   def install
     ENV.deparallelize
