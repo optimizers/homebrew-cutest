@@ -52,6 +52,9 @@ The last thing to do is to add all the requisite environment variables to our `~
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
 
+Note: it might be that you have to add the above to your `~/.profile` instead
+of your `~/.bashrc` if you are using Yosemite.
+
 If you installed CUTEst with Matlab support, you also need to define an environment variable pointing to your local Matlab installation, e.g.,
 
     export MYMATLAB=/Applications/Matlab/MATLAB_R2012a.app
