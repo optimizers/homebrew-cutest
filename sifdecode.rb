@@ -18,13 +18,7 @@ class Sifdecode < Formula
   def install
     ENV.deparallelize
 
-    if MacOS.prefer_64_bit?
-      mac = "13"
-      machine = "mac64"
-    else
-      mac = "12"
-      machine = "mac32"
-    end
+    machine, mac = (MacOS.prefer_64_bit?) ? %w(mac64 13) : %w(mac 12)
     Pathname.new("osx.input").write <<-EOF.undent
       #{mac}
       2
