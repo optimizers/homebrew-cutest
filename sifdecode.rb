@@ -37,7 +37,8 @@ class Sifdecode < Formula
     man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
     doc.install_symlink Dir["#{libexec}/doc/*"]
     lib.install_symlink Dir["#{libexec}/objects/#{machine}.osx.gfo/double/*.a"]
-    Pathname.new("#{prefix}/sifdecode.bashrc").write <<-EOF.undent
+
+    (prefix / "sifdecode.bashrc").write <<-EOF.undent
       export SIFDECODE=#{libexec}
       export MYARCH=#{machine}.osx.gfo
     EOF
