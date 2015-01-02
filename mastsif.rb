@@ -2,19 +2,19 @@
 # This should be available in Homebrew by default in the near future.
 
 class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def quiet_safe_system *args
-    super *args + ['--username', 'anonymous']
+  def quiet_safe_system(*args)
+    super(*args + ["--username", "anonymous"])
   end
 end
 
 class Mastsif < Formula
-  homepage 'http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki'
-  head 'http://ccpforge.cse.rl.ac.uk/svn/cutest/sif/trunk', :using => AnonymousSubversionDownloadStrategy
+  homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
+  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sif/trunk", :using => AnonymousSubversionDownloadStrategy
 
-  keg_only 'This formula only installs data files'
+  keg_only "This formula only installs data files"
 
   def install
-    prefix.install Dir['*']
+    prefix.install Dir["*"]
     Pathname.new("#{prefix}/mastsif.bashrc").write <<-EOF.undent
       export MASTSIF=#{prefix}
     EOF

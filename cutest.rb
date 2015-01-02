@@ -2,30 +2,30 @@
 # This should be available in Homebrew by default in the near future.
 
 class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def quiet_safe_system *args
-    super *args + ['--username', 'anonymous']
+  def quiet_safe_system(*args)
+    super(*args + ["--username", "anonymous"])
   end
 end
 
 class Cutest < Formula
-  homepage 'http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki'
-  head 'http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk', :using => AnonymousSubversionDownloadStrategy
+  homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
+  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
-  option 'with-matlab', 'Compile with Matlab support'
+  option "with-matlab", "Compile with Matlab support"
 
-  depends_on 'dpo/cutest/archdefs' => :build
-  depends_on 'dpo/cutest/sifdecode' => :build
-  depends_on 'homebrew/versions/gcc43' => [:build, 'enable-fortran'] if build.with? 'matlab' # Matworks only support gfortran 4.3.
+  depends_on "dpo/cutest/archdefs" => :build
+  depends_on "dpo/cutest/sifdecode" => :build
+  depends_on "homebrew/versions/gcc43" => [:build, "enable-fortran"] if build.with? "matlab" # Matworks only support gfortran 4.3.
   depends_on :fortran
   env :std
 
   def install
     ENV.deparallelize
     ENV.fortran
-    machine, mac = (MacOS.prefer_64_bit?) ? ['mac64', '13'] : ['mac', '12']
-    toolset = (build.with? 'matlab') ? '1' : '2'
+    machine, mac = (MacOS.prefer_64_bit?) ? %w(mac64 13) : %w(mac 12)
+    toolset = (build.with? "matlab") ? "1" : "2"
 
-    Pathname.new('osx.input').write <<-EOF.undent
+    Pathname.new("osx.input").write <<-EOF.undent
       #{mac}
       2
       #{toolset}
@@ -33,13 +33,13 @@ class Cutest < Formula
       nnydy
     EOF
 
-    ENV['ARCHDEFS'] = Formula.factory('archdefs').prefix
-    ENV['SIFDECODE'] = Formula.factory('sifdecode').libexec
+    ENV["ARCHDEFS"] = Formula.factory("archdefs").prefix
+    ENV["SIFDECODE"] = Formula.factory("sifdecode").libexec
     system "./install_cutest < osx.input"
 
     # We only want certain links in /usr/local/bin.
-    libexec.install Dir['*']
-    ['cutest2matlab', 'runcutest'].each do |f|
+    libexec.install Dir["*"]
+    %w(cutest2matlab runcutest).each do |f|
       bin.install_symlink "#{libexec}/bin/#{f}"
     end
 
@@ -53,7 +53,7 @@ class Cutest < Formula
     s = <<-EOS.undent
     export CUTEST=#{libexec}
     EOS
-    if build.with? 'matlab'
+    if build.with? "matlab"
       s += <<-EOS.undent
       export MYMATLABARCH=#{machine}.osx.gfo
       export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
@@ -67,7 +67,7 @@ class Cutest < Formula
     In your ~/.bashrc, add
     . #{prefix}/cutest.bashrc
     EOS
-    if build.with? 'matlab'
+    if build.with? "matlab"
       s += <<-EOS.undent
         export MYMATLAB=/path/to/your/matlab
 
@@ -76,11 +76,11 @@ class Cutest < Formula
         to set up your ~/.mexopts.sh.
       EOS
     end
-    return s
+    s
   end
 
   def test
-    ['gen77', 'gen90', 'genc'].each do |pkg|
+    %w(gen77 gen90 genc).each do |pkg|
       system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
