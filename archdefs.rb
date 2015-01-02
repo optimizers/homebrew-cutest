@@ -23,6 +23,10 @@ class Archdefs < Formula
     EOF
   end
 
+  test do
+    true
+  end
+
   def caveats; <<-EOS.undent
     In your ~/.bashrc, add the line
     . #{prefix}/archdefs.bashrc
