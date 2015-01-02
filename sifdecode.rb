@@ -49,14 +49,14 @@ class Sifdecode < Formula
     EOF
   end
 
+  test do
+    system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
+    ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
+  end
+
   def caveats; <<-EOS.undent
     In your ~/.bashrc, add the line
     . #{prefix}/sifdecode.bashrc
     EOS
-  end
-
-  def test
-    system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
-    ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
 end

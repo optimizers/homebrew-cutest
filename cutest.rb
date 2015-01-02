@@ -21,7 +21,6 @@ class Cutest < Formula
 
   def install
     ENV.deparallelize
-    ENV.fortran
     machine, mac = (MacOS.prefer_64_bit?) ? %w(mac64 13) : %w(mac 12)
     toolset = (build.with? "matlab") ? "1" : "2"
 
@@ -62,6 +61,13 @@ class Cutest < Formula
     Pathname.new("#{prefix}/cutest.bashrc").write s
   end
 
+  test do
+    %w(gen77 gen90 genc).each do |pkg|
+      system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
+    end
+    ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
+  end
+
   def caveats
     s = <<-EOS.undent
     In your ~/.bashrc, add
@@ -77,12 +83,5 @@ class Cutest < Formula
       EOS
     end
     s
-  end
-
-  def test
-    %w(gen77 gen90 genc).each do |pkg|
-      system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
-    end
-    ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
   end
 end
