@@ -31,7 +31,7 @@ class Sifdecode < Formula
       nny
     EOF
 
-    ENV["ARCHDEFS"] = Formula.factory("archdefs").prefix
+    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     system "./install_sifdecode < osx.input"
 
     # We only want certain links in /usr/local/bin.
@@ -50,6 +50,7 @@ class Sifdecode < Formula
   end
 
   test do
+    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
