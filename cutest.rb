@@ -32,8 +32,8 @@ class Cutest < Formula
       nnydy
     EOF
 
-    ENV["ARCHDEFS"] = Formula.factory("archdefs").prefix
-    ENV["SIFDECODE"] = Formula.factory("sifdecode").libexec
+    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
+    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     system "./install_cutest < osx.input"
 
     # We only want certain links in /usr/local/bin.
@@ -62,6 +62,8 @@ class Cutest < Formula
   end
 
   test do
+    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
+    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     %w(gen77 gen90 genc).each do |pkg|
       system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
     end
