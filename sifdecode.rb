@@ -1,5 +1,3 @@
-require 'formula'
-
 # CCPForge requires that svn checkouts be done with --username anonymous.
 # This should be available in Homebrew by default in the near future.
 
