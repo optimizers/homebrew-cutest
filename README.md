@@ -1,10 +1,10 @@
 # Homebrew's [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) Tap
 
+[![Build Status](https://travis-ci.org/dpo/homebrew-cutest.svg?branch=master)](https://travis-ci.org/dpo/homebrew-cutest)
+
 ## For the Impatient
 
     brew tap dpo/cutest
-    brew install archdefs --HEAD
-    brew install sifdecode --HEAD
     brew tap homebrew/versions   # If you want Matlab support.
     brew install cutest --HEAD [--with-matlab]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
@@ -39,10 +39,8 @@ If you will require Matlab support in CUTEst, you also need to tap [homebrew/ver
 
     brew tap homebrew/versions
 
-Now we can install the formulae in order:
+Now we can install CUTEst and, at your option, the entire SIF collection:
 
-    brew install archdefs --HEAD
-    brew install sifdecode --HEAD
     brew install cutest --HEAD [--with-matlab]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
 
@@ -69,6 +67,16 @@ You can check that everything works as intended using:
 ## Updating
 
 Every time the formulae are updated, `brew update` will let you know. You may then reinstall them using `brew reinstall sifdecode --HEAD`, etc. The software will not be automatically upgraded because the formulae are currently "head only", meaning that they pull directly from the subversion repository instead of fetching a released distribution (e.g., `sifdecode-1.0.tar.gz`). This is only temporary as we are planning to release distributions in the near future. Once that is done, updating will be easier.
+
+## Partial Installs
+
+You can install only `archdefs`, only `sifdecode` or only `mastsif` using the
+command
+
+    brew install <formula> --HEAD
+
+Because `archdefs` is a prerequisite of `sifdecode`, running `brew install
+sifdecode --HEAD` will also install `archdefs`.
 
 Enjoy!
 
