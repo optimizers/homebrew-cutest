@@ -58,7 +58,7 @@ class Cutest < Formula
       export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
       EOS
     end
-    Pathname.new("#{prefix}/cutest.bashrc").write s
+    (prefix / "cutest.bashrc").write(s)
   end
 
   test do
