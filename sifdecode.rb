@@ -42,11 +42,16 @@ class Sifdecode < Formula
       export SIFDECODE=#{libexec}
       export MYARCH=#{machine}.osx.gfo
     EOF
+    (prefix / "sifdecode.machine").write(machine)
   end
 
   test do
+    machine = File.read(prefix / "sifdecode.machine")
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = libexec
+    ENV["MYARCH"] = "#{machine}.osx.gfo"
+    ENV["MASTSIF"] = "#{libexec}/sif"
+
     system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
