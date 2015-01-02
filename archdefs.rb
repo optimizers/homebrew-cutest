@@ -14,10 +14,12 @@ class Archdefs < Formula
   keg_only "This formula only installs data files"
 
   def install
-    bin.install Dir["bin/*"]
-    prefix.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
+    (libexec / "bin").install Dir["bin/*"]
+    bin.install_symlink "#{libexec}/bin/install_optsuite"
+
+    libexec.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
     Pathname.new("#{prefix}/archdefs.bashrc").write <<-EOF.undent
-      export ARCHDEFS=#{prefix}
+      export ARCHDEFS=#{libexec}
     EOF
   end
 
