@@ -51,6 +51,7 @@ class Sifdecode < Formula
 
   test do
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
+    ENV["SIFDECODE"] = libexec
     system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
