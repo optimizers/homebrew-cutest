@@ -64,6 +64,7 @@ class Cutest < Formula
   test do
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
+    ENV["CUTEST"] = libexec
     %w(gen77 gen90 genc).each do |pkg|
       system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
     end
