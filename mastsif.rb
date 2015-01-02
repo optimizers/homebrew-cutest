@@ -14,9 +14,9 @@ class Mastsif < Formula
   keg_only "This formula only installs data files"
 
   def install
-    prefix.install Dir["*"]
+    (share / "mastsif").install Dir["*"]
     Pathname.new("#{prefix}/mastsif.bashrc").write <<-EOF.undent
-      export MASTSIF=#{prefix}
+      export MASTSIF=#{share}/mastsif
     EOF
   end
 
