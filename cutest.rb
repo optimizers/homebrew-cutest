@@ -59,12 +59,17 @@ class Cutest < Formula
       EOS
     end
     (prefix / "cutest.bashrc").write(s)
+    (prefix / "cutest.machine").write(machine)
   end
 
   test do
+    machine = File.read(prefix / "cutest.machine")
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     ENV["CUTEST"] = libexec
+    ENV["MYARCH"] = "#{machine}.osx.gfo"
+    ENV["MASTSIF"] = "#{libexec}/sif"
+
     %w(gen77 gen90 genc).each do |pkg|
       system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
     end
