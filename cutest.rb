@@ -15,30 +15,44 @@ class Cutest < Formula
 
   depends_on "dpo/cutest/archdefs" => :build
   depends_on "dpo/cutest/sifdecode" => :build
-  depends_on "homebrew/versions/gcc43" => [:build, "enable-fortran"] if build.with? "matlab" # Matworks only support gfortran 4.3.
+  depends_on "homebrew/versions/gcc43" => [:build, "enable-fortran"] if build.with? "matlab" # Mathworks only support gfortran 4.3.
   depends_on :fortran
   env :std
 
   def install
     ENV.deparallelize
-    machine, mac = (MacOS.prefer_64_bit?) ? %w(mac64 13) : %w(mac 12)
     toolset = (build.with? "matlab") ? "1" : "2"
 
-    Pathname.new("osx.input").write <<-EOF.undent
-      #{mac}
-      2
-      #{toolset}
-      4
-      nnydy
-    EOF
+    if OS.mac?
+      machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
+      arch = "osx"
+      Pathname.new("cutest.input").write <<-EOF.undent
+        #{key}
+        2
+        #{toolset}
+        4
+        nnydy
+      EOF
+    else
+      machine = "pc64"
+      arch = "lnx"
+      Pathname.new("cutest.input").write <<-EOF.undent
+        6
+        2
+        2
+        #{toolset}
+        4
+        nnydy
+      EOF
+    end
 
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
-    system "./install_cutest < osx.input"
+    system "./install_cutest < cutest.input"
 
     # We only want certain links in /usr/local/bin.
     libexec.install Dir["*"]
-    %w(cutest2matlab runcutest).each do |f|
+    %w[cutest2matlab runcutest].each do |f|
       bin.install_symlink "#{libexec}/bin/#{f}"
     end
 
@@ -46,40 +60,43 @@ class Cutest < Formula
     man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
     man3.install_symlink Dir["#{libexec}/man/man3/*.3"]
     doc.install_symlink Dir["#{libexec}/doc/README*"], "#{libexec}/doc/pdf"
-    lib.install_symlink "#{libexec}/objects/#{machine}.osx.gfo/double/libcutest.a"
-    ln_sf "#{libexec}/objects/#{machine}.osx.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
+    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
 
     s = <<-EOS.undent
-    export CUTEST=#{libexec}
+      export CUTEST=#{libexec}
     EOS
     if build.with? "matlab"
       s += <<-EOS.undent
-      export MYMATLABARCH=#{machine}.osx.gfo
-      export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
+        export MYMATLABARCH=#{machine}.#{arch}.gfo
+        export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
       EOS
     end
     (prefix / "cutest.bashrc").write(s)
-    (prefix / "cutest.machine").write(machine)
+    (prefix / "cutest.machine").write <<-EOF.undent
+      #{machine}
+      #{arch}
+    EOF
   end
 
   test do
-    machine = File.read(prefix / "cutest.machine")
+    machine, arch = File.read(prefix / "cutest.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     ENV["CUTEST"] = libexec
-    ENV["MYARCH"] = "#{machine}.osx.gfo"
+    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
-    %w(gen77 gen90 genc).each do |pkg|
-      system "runcutest -p #{pkg} -D #{libexec}/sif/ROSENBR.SIF"
+    %w[gen77 gen90 genc].each do |pkg|
+      system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
   end
 
   def caveats
     s = <<-EOS.undent
-    In your ~/.bashrc, add
-    . #{prefix}/cutest.bashrc
+      In your ~/.bashrc, add
+      . #{prefix}/cutest.bashrc
     EOS
     if build.with? "matlab"
       s += <<-EOS.undent

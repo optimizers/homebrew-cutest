@@ -18,41 +18,56 @@ class Sifdecode < Formula
   def install
     ENV.deparallelize
 
-    machine, mac = (MacOS.prefer_64_bit?) ? %w(mac64 13) : %w(mac 12)
-    Pathname.new("osx.input").write <<-EOF.undent
-      #{mac}
-      2
-      nny
-    EOF
+    if OS.mac?
+      machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
+      arch = "osx"
+      Pathname.new("sifdecode.input").write <<-EOF.undent
+        #{key}
+        2
+        nny
+      EOF
+    else
+      machine = "pc64"
+      arch = "lnx"
+      Pathname.new("sifdecode.input").write <<-EOF.undent
+        6
+        2
+        2
+        nny
+      EOF
+    end
 
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
-    system "./install_sifdecode < osx.input"
+    system "./install_sifdecode < sifdecode.input"
 
     # We only want certain links in /usr/local/bin.
     libexec.install Dir["*"]
-    %w(sifdecoder classall select).each do |f|
+    %w[sifdecoder classall select].each do |f|
       bin.install_symlink "#{libexec}/bin/#{f}"
     end
 
     man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
     doc.install_symlink Dir["#{libexec}/doc/*"]
-    lib.install_symlink Dir["#{libexec}/objects/#{machine}.osx.gfo/double/*.a"]
+    lib.install_symlink Dir["#{libexec}/objects/#{machine}.#{arch}.gfo/double/*.a"]
 
     (prefix / "sifdecode.bashrc").write <<-EOF.undent
       export SIFDECODE=#{libexec}
-      export MYARCH=#{machine}.osx.gfo
+      export MYARCH=#{machine}.#{arch}.gfo
     EOF
-    (prefix / "sifdecode.machine").write(machine)
+    (prefix / "sifdecode.machine").write <<-EOF.undent
+      #{machine}
+      #{arch}
+    EOF
   end
 
   test do
-    machine = File.read(prefix / "sifdecode.machine")
+    machine, arch = File.read(prefix / "sifdecode.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = libexec
-    ENV["MYARCH"] = "#{machine}.osx.gfo"
+    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
-    system "sifdecoder #{libexec}/sif/ROSENBR.SIF"
+    system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
 
