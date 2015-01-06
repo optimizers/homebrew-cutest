@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ev
 
 # Install LinuxBrew.
 sudo apt-get update
@@ -12,7 +12,7 @@ ln -s $(which gcc) $HOME/.linuxbrew/bin/gcc-${gccver}
 ln -s $(which g++) $HOME/.linuxbrew/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 
 # Ensure GFORTRAN is available.
-sudo apt-get install gfortran-$(gccver)
+sudo apt-get -y install gfortran-${gccver}
 ln -s $(which gfortran) $HOME/.linuxbrew/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
 
 # Ensure BLAS and LAPACK are available.
