@@ -1,32 +1,19 @@
 language: ruby
 
-# On both OSX and Linux we brew!
 os:
   - osx
   - linux
 
 before_install:
-  - if [ `uname` = "Linux" ]; then
-      # Install LinuxBrew.
-      sudo apt-get update
-      sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
-      unset DYLD_LIBRARY_PATH
-      export PATH="$HOME/.linuxbrew/bin:$PATH"
-      export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-      export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-      echo -ne '\n' | ruby -e "$(wget -O- https://raw.github.com/Homebrew/linuxbrew/go/install)"
-      # Ensure BLAS and LAPACK are available.
-      sudo apt-get -y install libblas-dev liblapack-dev
-    fi
+  - if [[ `uname` == "Linux" ]]; then sh ./setup_travis_linux.sh; fi
 
 install:
   - brew update
   - brew tap homebrew/science
-  - if [ `uname` = "Linux" ]; then
-      brew install pkg-config
-      brew install $(brew deps gcc)
-      travis_wait brew install gcc  # Can stay silent for longer than 10 mins.
-    fi
+  - brew install pkg-config
+  - brew install $(brew deps gcc)
+  # Can stay silent for longer than 10 mins if not using bottle.
+  - travis_wait brew install gcc
   # Install homebrew/cutest as tap.
   - mkdir -p $(brew --repo)/Library/Taps/travis
   - ln -s $PWD $(brew --repo)/Library/Taps/travis/travis-testtap
