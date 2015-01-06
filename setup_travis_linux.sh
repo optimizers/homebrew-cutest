@@ -13,7 +13,7 @@ ln -s $(which g++) $HOME/.linuxbrew/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 
 # Ensure GFORTRAN is available.
 sudo apt-get -y install gfortran-${gccver}
-ln -s $(which gfortran) $HOME/.linuxbrew/bin/gfortran-$(gfortran -dumpversion |cut -d. -f1,2)
+ln -s $(which gfortran-${gccver}) $HOME/.linuxbrew/bin/gfortran-${gccver}
 
 # Ensure BLAS and LAPACK are available.
 sudo apt-get -y install libblas-dev liblapack-dev
