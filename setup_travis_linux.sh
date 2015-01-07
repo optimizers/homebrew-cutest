@@ -1,5 +1,5 @@
 #!/bin/bash
-set -evx
+set -ev
 
 # Install LinuxBrew.
 sudo apt-get update
