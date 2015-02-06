@@ -50,6 +50,30 @@ class Cutest < Formula
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     system "./install_cutest < cutest.input"
 
+    # Build shared libraries.
+    so = (OS.mac?) ? "dylib" : "so"
+    ["single", "double"].each do |prec|
+      cd "objects/#{machine}.#{arch}.gfo/#{prec}" do
+        Dir["*.a"].each do |l|
+          lname = File.basename(l, ".a") + "_#{prec}.#{so}"
+          mkdir "#{lname}_shared" do
+            system "ar", "-x", "../#{l}"
+            ofiles = Dir["*.o"]
+            if OS.mac?
+              system "#{ENV["FC"]}", "-dynamiclib",
+                                     "-undefined", "dynamic_lookup",
+                                     "-install_name", "#{lib}/#{lname}",
+                                     "-o", "../#{lname}", *ofiles
+            else
+              system "#{ENV["FC"]}", "-shared",
+                                     "-Wl,-soname,#{lib}/#{lname}",
+                                     "-o", "../#{lname}", *ofiles
+            end
+          end
+        end
+      end
+    end
+
     # We only want certain links in /usr/local/bin.
     libexec.install Dir["*"]
     %w[cutest2matlab runcutest].each do |f|
@@ -61,7 +85,11 @@ class Cutest < Formula
     man3.install_symlink Dir["#{libexec}/man/man3/*.3"]
     doc.install_symlink Dir["#{libexec}/doc/README*"], "#{libexec}/doc/pdf"
     lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a"
+    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a", "#{lib}/libcutest_double.a"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}", "#{lib}/libcutest.#{so}"
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
 
     s = <<-EOS.undent
       export CUTEST=#{libexec}
@@ -89,6 +117,7 @@ class Cutest < Formula
 
     %w[gen77 gen90 genc].each do |pkg|
       system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
+      system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF"
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
   end
