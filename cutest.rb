@@ -92,12 +92,12 @@ class Cutest < Formula
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
 
     s = <<-EOS.undent
-      export CUTEST=#{libexec}
+      export CUTEST=#{opt_libexec}
     EOS
     if build.with? "matlab"
       s += <<-EOS.undent
         export MYMATLABARCH=#{machine}.#{arch}.gfo
-        export MATLABPATH=$MATLABPATH:#{libexec}/src/matlab
+        export MATLABPATH=$MATLABPATH:#{opt_libexec}/src/matlab
       EOS
     end
     (prefix / "cutest.bashrc").write(s)

@@ -51,7 +51,7 @@ class Sifdecode < Formula
     lib.install_symlink Dir["#{libexec}/objects/#{machine}.#{arch}.gfo/double/*.a"]
 
     (prefix / "sifdecode.bashrc").write <<-EOF.undent
-      export SIFDECODE=#{libexec}
+      export SIFDECODE=#{opt_libexec}
       export MYARCH=#{machine}.#{arch}.gfo
     EOF
     (prefix / "sifdecode.machine").write <<-EOF.undent

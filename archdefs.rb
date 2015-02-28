@@ -19,7 +19,7 @@ class Archdefs < Formula
 
     libexec.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
     Pathname.new("#{prefix}/archdefs.bashrc").write <<-EOF.undent
-      export ARCHDEFS=#{libexec}
+      export ARCHDEFS=#{opt_libexec}
     EOF
   end
 

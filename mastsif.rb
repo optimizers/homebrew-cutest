@@ -16,7 +16,7 @@ class Mastsif < Formula
   def install
     (share / "mastsif").install Dir["*"]
     Pathname.new("#{prefix}/mastsif.bashrc").write <<-EOF.undent
-      export MASTSIF=#{share}/mastsif
+      export MASTSIF=#{opt_share}/mastsif
     EOF
   end
 
