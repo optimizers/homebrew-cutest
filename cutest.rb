@@ -51,25 +51,22 @@ class Cutest < Formula
     system "./install_cutest < cutest.input"
 
     # Build shared libraries.
-    so = (OS.mac?) ? "dylib" : "so"
+    if OS.mac?
+      so = "dylib"
+      all_load = "-Wl,-all_load"
+      noall_load = "-Wl,-noall_load"
+      extra = ["-Wl,-undefined", "-Wl,dynamic_lookup"]
+    else
+      so = "so"
+      all_load = "-Wl,-whole-archive"
+      noall_load = "-Wl,-no-whole-archive"
+      extra = []
+    end
     ["single", "double"].each do |prec|
       cd "objects/#{machine}.#{arch}.gfo/#{prec}" do
         Dir["*.a"].each do |l|
           lname = File.basename(l, ".a") + "_#{prec}.#{so}"
-          mkdir "#{lname}_shared" do
-            system "ar", "-x", "../#{l}"
-            ofiles = Dir["*.o"]
-            if OS.mac?
-              system "#{ENV["FC"]}", "-dynamiclib",
-                                     "-undefined", "dynamic_lookup",
-                                     "-install_name", "#{lib}/#{lname}",
-                                     "-o", "../#{lname}", *ofiles
-            else
-              system "#{ENV["FC"]}", "-shared",
-                                     "-Wl,-soname,#{lib}/#{lname}",
-                                     "-o", "../#{lname}", *ofiles
-            end
-          end
+          system ENV["FC"], "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
         end
       end
     end
