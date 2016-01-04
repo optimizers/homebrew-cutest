@@ -131,9 +131,11 @@ class Cutest < Formula
     ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
-    %w[gen77 gen90 genc].each do |pkg|
-      system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
-      system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF"
+    cd testpath do
+      %w[gen77 gen90 genc].each do |pkg|
+        system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
+        system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF"
+      end
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
   end

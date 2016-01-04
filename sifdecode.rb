@@ -74,7 +74,9 @@ class Sifdecode < Formula
     ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
-    system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
+    cd testpath do
+      system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
+    end
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
 end
