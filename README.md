@@ -1,10 +1,10 @@
 # Homebrew's [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) Tap
 
-[![Build Status](https://travis-ci.org/dpo/homebrew-cutest.svg?branch=master)](https://travis-ci.org/dpo/homebrew-cutest)
+[![Build Status](https://travis-ci.org/optimizers/homebrew-cutest.svg?branch=master)](https://travis-ci.org/optimizers/homebrew-cutest)
 
 ## For the Impatient
 
-    brew tap dpo/cutest
+    brew tap optimizers/cutest
     brew tap homebrew/versions   # If you want Matlab support.
     brew install cutest --HEAD [--with-matlab]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
@@ -33,7 +33,7 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 
 Brew taps are repositories of Homebrew formulae. In order to use this one, you first need to tap it:
 
-    brew tap dpo/cutest
+    brew tap optimizers/cutest
 
 If you will require Matlab support in CUTEst, you also need to tap [homebrew/versions](https://github.com/Homebrew/homebrew-versions), a repository that gives access to gcc and gfortran 4.3 as those are [the only ones supported by the Mathworks on OSX](http://www.mathworks.com/support/compilers/R2013b/index.html?sec=maci64):
 
