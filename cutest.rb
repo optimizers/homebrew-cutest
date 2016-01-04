@@ -8,13 +8,14 @@ class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
 end
 
 class Cutest < Formula
+  desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"
 
-  depends_on "dpo/cutest/archdefs" => :build
-  depends_on "dpo/cutest/sifdecode" => :build
+  depends_on "optimizers/cutest/archdefs" => :build
+  depends_on "optimizers/cutest/sifdecode" => :build
   depends_on :fortran
   env :std
 
@@ -105,21 +106,6 @@ class Cutest < Formula
     EOF
   end
 
-  test do
-    machine, arch = File.read(prefix / "cutest.machine").split
-    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
-    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
-    ENV["CUTEST"] = libexec
-    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
-    ENV["MASTSIF"] = "#{libexec}/sif"
-
-    %w[gen77 gen90 genc].each do |pkg|
-      system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
-      system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF"
-    end
-    ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
-  end
-
   def caveats
     s = <<-EOS.undent
       In your ~/.bashrc, add
@@ -135,6 +121,21 @@ class Cutest < Formula
       EOS
     end
     s
+  end
+
+  test do
+    machine, arch = File.read(prefix / "cutest.machine").split
+    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
+    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
+    ENV["CUTEST"] = libexec
+    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
+    ENV["MASTSIF"] = "#{libexec}/sif"
+
+    %w[gen77 gen90 genc].each do |pkg|
+      system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
+      system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF"
+    end
+    ohai "Test results are in ~/Library/Logs/Homebrew/cutest."
   end
 end
 

@@ -8,11 +8,12 @@ class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
 end
 
 class MarosMeszaros < Formula
+  desc "Maros and Meszaros SIF problems"
   homepage "http://www.cuter.rl.ac.uk/Problems/marmes.shtml"
-  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
   url "ftp://ftp.numerical.rl.ac.uk/pub/cuter/marosmeszaros.tar.gz"
-  sha256 "ad8c65c4122a2acfd6d60acdd6bc4bb1a15f79dd8ed4be646fbe7348f938a6f9"
   version "1.0"
+  sha256 "ad8c65c4122a2acfd6d60acdd6bc4bb1a15f79dd8ed4be646fbe7348f938a6f9"
+  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"
 

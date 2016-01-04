@@ -8,6 +8,7 @@ class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
 end
 
 class Mastsif < Formula
+  desc "SIF problem collection"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sif/trunk", :using => AnonymousSubversionDownloadStrategy
 
@@ -20,13 +21,13 @@ class Mastsif < Formula
     EOF
   end
 
-  test do
-    true
-  end
-
   def caveats; <<-EOS.undent
     In your ~/.bashrc, add the line
     . #{prefix}/mastsif.bashrc
     EOS
+  end
+
+  test do
+    true
   end
 end
