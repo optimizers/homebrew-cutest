@@ -14,6 +14,7 @@ class Cutest < Formula
 
   option "with-matlab", "Compile with Matlab support"
 
+  depends_on "gsl"
   depends_on "optimizers/cutest/archdefs" => :build
   depends_on "optimizers/cutest/sifdecode" => :build
   depends_on :fortran
