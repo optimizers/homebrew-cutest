@@ -15,8 +15,8 @@ install:
   - brew update
   - brew tap homebrew/science
   # Install homebrew/cutest as tap.
-  - mkdir -p $(brew --repo)/Library/Taps/dpo
-  - ln -s $PWD $(brew --repo)/Library/Taps/dpo/homebrew-cutest
+  - mkdir -p $(brew --repo)/Library/Taps/optimizers
+  - ln -s $PWD $(brew --repo)/Library/Taps/optimizers/homebrew-cutest
   - brew tap --repair
 
 env:

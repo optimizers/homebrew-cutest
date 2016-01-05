@@ -8,6 +8,7 @@ class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
 end
 
 class Archdefs < Formula
+  desc "Architecture definition files for CUTEst"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/archdefs/trunk", :using => AnonymousSubversionDownloadStrategy
 
@@ -23,13 +24,13 @@ class Archdefs < Formula
     EOF
   end
 
-  test do
-    true
-  end
-
   def caveats; <<-EOS.undent
     In your ~/.bashrc, add the line
     . #{prefix}/archdefs.bashrc
     EOS
+  end
+
+  test do
+    true
   end
 end

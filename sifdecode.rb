@@ -8,10 +8,11 @@ class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
 end
 
 class Sifdecode < Formula
+  desc "SIF Decoder"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk", :using => AnonymousSubversionDownloadStrategy
 
-  depends_on "dpo/cutest/archdefs" => :build
+  depends_on "optimizers/cutest/archdefs" => :build
   depends_on :fortran
   env :std
 
@@ -60,6 +61,12 @@ class Sifdecode < Formula
     EOF
   end
 
+  def caveats; <<-EOS.undent
+    In your ~/.bashrc, add the line
+    . #{prefix}/sifdecode.bashrc
+    EOS
+  end
+
   test do
     machine, arch = File.read(prefix / "sifdecode.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
@@ -67,13 +74,9 @@ class Sifdecode < Formula
     ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
-    system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
+    cd testpath do
+      system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
+    end
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
-  end
-
-  def caveats; <<-EOS.undent
-    In your ~/.bashrc, add the line
-    . #{prefix}/sifdecode.bashrc
-    EOS
   end
 end
