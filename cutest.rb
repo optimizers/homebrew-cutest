@@ -34,7 +34,7 @@ class Cutest < Formula
         2
         #{toolset}
         4
-        nnydy
+        nnydn
       EOF
     else
       machine = "pc64"
@@ -45,7 +45,7 @@ class Cutest < Formula
         2
         #{toolset}
         4
-        nnydy
+        nnydn
       EOF
     end
 
@@ -65,12 +65,10 @@ class Cutest < Formula
       noall_load = "-Wl,-no-whole-archive"
       extra = []
     end
-    ["single", "double"].each do |prec|
-      cd "objects/#{machine}.#{arch}.gfo/#{prec}" do
-        Dir["*.a"].each do |l|
-          lname = File.basename(l, ".a") + "_#{prec}.#{so}"
-          system ENV["FC"], "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
-        end
+    cd "objects/#{machine}.#{arch}.gfo/double" do
+      Dir["*.a"].each do |l|
+        lname = File.basename(l, ".a") + "_double.#{so}"
+        system ENV["FC"], "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
       end
     end
 
@@ -88,8 +86,6 @@ class Cutest < Formula
     lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}"
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a", "#{lib}/libcutest_double.a"
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}", "#{lib}/libcutest.#{so}"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
 
     s = <<-EOS.undent
       export CUTEST=#{opt_libexec}
