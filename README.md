@@ -20,14 +20,15 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 
 * One simple command to install each tool: `brew install tool --HEAD`
 * No need to tweak your `PATH`, `LD_LIBRARY_PATH`, `MANPATH` and so forth
-* `libsifdecode`, `libcutest` and `libcutest_single` are available directly in `/usr/local/lib` so linking them in is a simple matter of adding `-lsifdecode`, `-lcutest` or `-lcutest_single`
+* `libsifdecode` and `libcutest` are available directly in `/usr/local/lib` so linking them in is a simple matter of adding `-lsifdecode` or `-lcutest`
 * installation of a Matlab-friendly compiler is taken in charge.
 
 ### Disadvantages
 
 * Only one architecture of SIFDecode and CUTEst can be built
 * Cannot easily select esoteric compilers
-* Cannot upgrade using usual commands (for now).
+* Cannot upgrade using usual commands (for now)
+* Single precision is not supported.
 
 ## Installing
 
