@@ -6,7 +6,7 @@
 
     brew tap optimizers/cutest
     brew tap homebrew/versions   # If you want Matlab support.
-    brew install cutest --HEAD [--with-matlab]
+    brew install cutest --HEAD [--with-matlab] [--without-single]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
@@ -41,9 +41,11 @@ If you will require Matlab support in CUTEst, you also need to tap [homebrew/ver
 
 Now we can install CUTEst and, at your option, the entire SIF collection:
 
-    brew install cutest --HEAD [--with-matlab]
+    brew install cutest --HEAD [--with-matlab] [--without-single]
     brew install mastsif --HEAD  # If you want the whole SIF collection.
 
+The option `--without-single` will prevent the single precision library from
+being built.
 The last thing to do is to add all the requisite environment variables to our `~/.bashrc`. Each package provides a mini `bashrc` that contains the relevant definitions and can be sourced. They can all be sourced in one command:
 
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \

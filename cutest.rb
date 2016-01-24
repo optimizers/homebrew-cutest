@@ -13,6 +13,7 @@ class Cutest < Formula
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"
+  option "without-single", "Compile without single support"
 
   depends_on "gsl"
   depends_on "optimizers/cutest/archdefs" => :build
@@ -25,6 +26,8 @@ class Cutest < Formula
   def install
     ENV.deparallelize
     toolset = (build.with? "matlab") ? "1" : "2"
+    single = (build.with? "single") ? "y" : "n"
+    precisions = (build.with? "single") ? ["single", "double"] : ["double"]
 
     if OS.mac?
       machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
@@ -34,7 +37,7 @@ class Cutest < Formula
         2
         #{toolset}
         4
-        nnydy
+        nnyd#{single}
       EOF
     else
       machine = "pc64"
@@ -45,7 +48,7 @@ class Cutest < Formula
         2
         #{toolset}
         4
-        nnydy
+        nnyd#{single}
       EOF
     end
 
@@ -65,7 +68,7 @@ class Cutest < Formula
       noall_load = "-Wl,-no-whole-archive"
       extra = []
     end
-    ["single", "double"].each do |prec|
+    precisions.each do |prec|
       cd "objects/#{machine}.#{arch}.gfo/#{prec}" do
         Dir["*.a"].each do |l|
           lname = File.basename(l, ".a") + "_#{prec}.#{so}"
@@ -88,8 +91,10 @@ class Cutest < Formula
     lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}"
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a", "#{lib}/libcutest_double.a"
     ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}", "#{lib}/libcutest.#{so}"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
+    if build.with? "single"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
+    end
 
     s = <<-EOS.undent
       export CUTEST=#{opt_libexec}
