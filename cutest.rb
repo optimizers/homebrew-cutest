@@ -13,11 +13,15 @@ class Cutest < Formula
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"
+  option "with-pgi", "build with Portland Group compilers"
   option "without-single", "Compile without single support"
 
   depends_on "gsl"
-  depends_on "optimizers/cutest/archdefs" => :build
-  depends_on "optimizers/cutest/sifdecode" => :build
+  depends_on "optimizers/cutest/archdefs"
+  depends_on "optimizers/cutest/sifdecode" => ((build.with? "pgi") ? ["with-pgi"] : [])
+
+  # We still require :fortran to create shared libraries. The options
+  # -all_load and -noall_load don't sit well with pgfortran.
   depends_on :fortran
   env :std
 
@@ -29,25 +33,31 @@ class Cutest < Formula
     single = (build.with? "single") ? "y" : "n"
     precisions = (build.with? "single") ? ["single", "double"] : ["double"]
 
+    opoo "Portland Group compilers are not officially compatible with Matlab" if ((build.with? "matlab") && (build.with? "pgi"))
+
     if OS.mac?
       machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
+      fcomp = (build.with? "pgi") ? "5" : "2"
+      ccomp = (build.with? "pgi") ? "5" : "4"
       Pathname.new("cutest.input").write <<-EOF.undent
         #{key}
-        2
+        #{fcomp}
         #{toolset}
-        4
+        #{ccomp}
         nnyd#{single}
       EOF
     else
       machine = "pc64"
       arch = "lnx"
+      fcomp = (build.with? "pgi") ? "7" : "2"
+      ccomp = (build.with? "pgi") ? "6" : "4"
       Pathname.new("cutest.input").write <<-EOF.undent
         6
         2
-        2
+        #{fcomp}
         #{toolset}
-        4
+        #{ccomp}
         nnyd#{single}
       EOF
     end
@@ -68,8 +78,9 @@ class Cutest < Formula
       noall_load = "-Wl,-no-whole-archive"
       extra = []
     end
+    compiler = (build.with? "pgi") ? "pgf" : "gfo"
     precisions.each do |prec|
-      cd "objects/#{machine}.#{arch}.gfo/#{prec}" do
+      cd "objects/#{machine}.#{arch}.#{compiler}/#{prec}" do
         Dir["*.a"].each do |l|
           lname = File.basename(l, ".a") + "_#{prec}.#{so}"
           system ENV["FC"], "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
@@ -87,13 +98,13 @@ class Cutest < Formula
     man1.install_symlink Dir["#{libexec}/man/man1/*.1"]
     man3.install_symlink Dir["#{libexec}/man/man3/*.3"]
     doc.install_symlink Dir["#{libexec}/doc/README*"], "#{libexec}/doc/pdf"
-    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a"
-    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest.a", "#{lib}/libcutest_double.a"
-    ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/double/libcutest_double.#{so}", "#{lib}/libcutest.#{so}"
+    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/double/libcutest.a"
+    lib.install_symlink "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/double/libcutest_double.#{so}"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/double/libcutest.a", "#{lib}/libcutest_double.a"
+    ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/double/libcutest_double.#{so}", "#{lib}/libcutest.#{so}"
     if build.with? "single"
-      ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest.a", "#{lib}/libcutest_single.a"
-      ln_sf "#{libexec}/objects/#{machine}.#{arch}.gfo/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/single/libcutest.a", "#{lib}/libcutest_single.a"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
     end
 
     s = <<-EOS.undent
@@ -101,7 +112,7 @@ class Cutest < Formula
     EOS
     if build.with? "matlab"
       s += <<-EOS.undent
-        export MYMATLABARCH=#{machine}.#{arch}.gfo
+        export MYMATLABARCH=#{machine}.#{arch}.#{compiler}
         export MATLABPATH=$MATLABPATH:#{opt_libexec}/src/matlab
       EOS
     end
@@ -109,6 +120,7 @@ class Cutest < Formula
     (prefix / "cutest.machine").write <<-EOF.undent
       #{machine}
       #{arch}
+      #{compiler}
     EOF
   end
 
@@ -130,11 +142,11 @@ class Cutest < Formula
   end
 
   test do
-    machine, arch = File.read(prefix / "cutest.machine").split
+    machine, arch, compiler = File.read(prefix / "cutest.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].libexec
     ENV["CUTEST"] = libexec
-    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
+    ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
     cd testpath do
