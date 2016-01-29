@@ -12,8 +12,10 @@ class Sifdecode < Formula
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk", :using => AnonymousSubversionDownloadStrategy
 
+  option "with-pgi", "build with Portland Group compiler"
+
   depends_on "optimizers/cutest/archdefs" => :build
-  depends_on :fortran
+  depends_on :fortran if build.without? "pgi"
   env :std
 
   def install
@@ -22,18 +24,20 @@ class Sifdecode < Formula
     if OS.mac?
       machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
+      comp = (build.with? "pgi") ? "5" : "2"
       Pathname.new("sifdecode.input").write <<-EOF.undent
         #{key}
-        2
+        #{comp}
         nny
       EOF
     else
       machine = "pc64"
       arch = "lnx"
+      comp = (build.with? "pgi") ? "7" : "2"
       Pathname.new("sifdecode.input").write <<-EOF.undent
         6
         2
-        2
+        #{comp}
         nny
       EOF
     end
@@ -51,13 +55,15 @@ class Sifdecode < Formula
     doc.install_symlink Dir["#{libexec}/doc/*"]
     lib.install_symlink Dir["#{libexec}/objects/#{machine}.#{arch}.gfo/double/*.a"]
 
+    compiler = (build.with? "pgi") ? "pgf" : "gfo"
     (prefix / "sifdecode.bashrc").write <<-EOF.undent
       export SIFDECODE=#{opt_libexec}
-      export MYARCH=#{machine}.#{arch}.gfo
+      export MYARCH=#{machine}.#{arch}.#{compiler}
     EOF
     (prefix / "sifdecode.machine").write <<-EOF.undent
       #{machine}
       #{arch}
+      #{compiler}
     EOF
   end
 
@@ -68,10 +74,10 @@ class Sifdecode < Formula
   end
 
   test do
-    machine, arch = File.read(prefix / "sifdecode.machine").split
+    machine, arch, compiler = File.read(prefix / "sifdecode.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].libexec
     ENV["SIFDECODE"] = libexec
-    ENV["MYARCH"] = "#{machine}.#{arch}.gfo"
+    ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
     cd testpath do
