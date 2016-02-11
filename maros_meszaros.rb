@@ -17,7 +17,7 @@ class MarosMeszaros < Formula
   keg_only "This formula only installs data files"
 
   def install
-    (share / "maros_meszaros").install Dir["*.SIF"]
+    pkgshare.install Dir["*.SIF"]
   end
 
   test do
