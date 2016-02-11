@@ -21,6 +21,6 @@ class MarosMeszaros < Formula
   end
 
   test do
-    true
+    File.exist? pkgshare/"CVXQP3_L.SIF"
   end
 end

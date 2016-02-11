@@ -30,6 +30,6 @@ class Mastsif < Formula
   end
 
   test do
-    true
+    File.exist? pkgshare/"BRAINPC1.SIF"
   end
 end
