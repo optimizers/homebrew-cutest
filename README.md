@@ -5,9 +5,8 @@
 ## For the Impatient
 
     brew tap optimizers/cutest
-    brew tap homebrew/versions   # If you want Matlab support.
-    brew install cutest --HEAD [--with-matlab] [--without-single]
-    brew install mastsif --HEAD  # If you want the whole SIF collection.
+    brew install cutest [--with-matlab] [--without-single] [--with-pgi]
+    brew install mastsif  # If you want the whole SIF collection.
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
@@ -18,16 +17,16 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 
 ### Advantages
 
-* One simple command to install each tool: `brew install tool --HEAD`
+* One simple command to install each tool: `brew install tool`
 * No need to tweak your `PATH`, `LD_LIBRARY_PATH`, `MANPATH` and so forth
 * `libsifdecode`, `libcutest` and `libcutest_single` are available directly in `/usr/local/lib` so linking them in is a simple matter of adding `-lsifdecode`, `-lcutest` or `-lcutest_single`
 * installation of a Matlab-friendly compiler is taken in charge.
 
 ### Disadvantages
 
+* Only OSX and Linux are supported
 * Only one architecture of SIFDecode and CUTEst can be built
 * Cannot easily select esoteric compilers
-* Cannot upgrade using usual commands (for now).
 
 ## Installing
 
@@ -35,17 +34,13 @@ Brew taps are repositories of Homebrew formulae. In order to use this one, you f
 
     brew tap optimizers/cutest
 
-If you will require Matlab support in CUTEst, you also need to tap [homebrew/versions](https://github.com/Homebrew/homebrew-versions), a repository that gives access to gcc and gfortran 4.3 as those are [the only ones supported by the Mathworks on OSX](http://www.mathworks.com/support/compilers/R2013b/index.html?sec=maci64):
-
-    brew tap homebrew/versions
-
 Now we can install CUTEst and, at your option, the entire SIF collection:
 
-    brew install cutest --HEAD [--with-matlab] [--without-single]
-    brew install mastsif --HEAD  # If you want the whole SIF collection.
+    brew install cutest [--with-matlab] [--without-single] [--with-pgi]
+    brew install mastsif  # If you want the whole SIF collection.
 
-The option `--without-single` will prevent the single precision library from
-being built.
+The option `--without-single` will prevent the single precision library from being built.
+The option `--with-pgi` will build CUTEst and SIFDecode with the PGI compilers, which are assumed to be available.
 The last thing to do is to add all the requisite environment variables to our `~/.bashrc`. Each package provides a mini `bashrc` that contains the relevant definitions and can be sourced. They can all be sourced in one command:
 
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
@@ -68,17 +63,21 @@ You can check that everything works as intended using:
 
 ## Updating
 
-Every time the formulae are updated, `brew update` will let you know. You may then reinstall them using `brew reinstall sifdecode --HEAD`, etc. The software will not be automatically upgraded because the formulae are currently "head only", meaning that they pull directly from the subversion repository instead of fetching a released distribution (e.g., `sifdecode-1.0.tar.gz`). This is only temporary as we are planning to release distributions in the near future. Once that is done, updating will be easier.
+Every time the formulae are updated, `brew update` will let you know. You may then reinstall them using `brew reinstall sifdecode`, etc.
+
+## Development Builds
+
+If you so desire, you may build directly from the latest sources in the Subversion repositories. All that is required is to pass the `--HEAD` option to each build command, e.g., `brew install sifdecode --HEAD`.
 
 ## Partial Installs
 
 You can install only `archdefs`, only `sifdecode` or only `mastsif` using the
 command
 
-    brew install <formula> --HEAD
+    brew install <formula>
 
 Because `archdefs` is a prerequisite of `sifdecode`, running `brew install
-sifdecode --HEAD` will also install `archdefs`.
+sifdecode` will also install `archdefs`.
 
 Enjoy!
 
