@@ -10,6 +10,8 @@ end
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
+  url "https://github.com/optimizers/cutest-mirror/archive/v0.2.tar.gz"
+  sha256 "91c50cef402387be69a8a68718201e0f899f846d7b69d4129e121c9f10f5f377"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"

@@ -27,5 +27,5 @@ env:
 
 script:
   #- brew audit $PACKAGE --strict  # Fails for now b/c head only.
-  - brew install -v $PACKAGE --HEAD
+  - brew install -v $PACKAGE
   - brew test -v $PACKAGE

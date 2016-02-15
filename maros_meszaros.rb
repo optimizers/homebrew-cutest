@@ -10,18 +10,17 @@ end
 class MarosMeszaros < Formula
   desc "Maros and Meszaros SIF problems"
   homepage "http://www.cuter.rl.ac.uk/Problems/marmes.shtml"
-  url "ftp://ftp.numerical.rl.ac.uk/pub/cuter/marosmeszaros.tar.gz"
-  version "1.0"
-  sha256 "ad8c65c4122a2acfd6d60acdd6bc4bb1a15f79dd8ed4be646fbe7348f938a6f9"
+  url "https://github.com/optimizers/maros-meszaros-mirror/archive/v0.1.tar.gz"
+  sha256 "eddc5e831f14be08e823d464ccb78834ef9e9120211f00f7724c0258c64fc14c"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"
 
   def install
-    (share / "maros_meszaros").install Dir["*.SIF"]
+    pkgshare.install Dir["*.SIF"]
   end
 
   test do
-    true
+    File.exist? pkgshare/"CVXQP3_L.SIF"
   end
 end

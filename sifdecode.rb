@@ -10,6 +10,8 @@ end
 class Sifdecode < Formula
   desc "SIF Decoder"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
+  url "https://github.com/optimizers/sifdecode-mirror/archive/v0.3.tar.gz"
+  sha256 "e6f1518e671e93384ea0422ed0790f89c861b149929a2656f686607dcc1c1048"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-pgi", "build with Portland Group compiler"
