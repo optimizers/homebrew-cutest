@@ -64,8 +64,8 @@ class Cutest < Formula
       EOF
     end
 
-    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
-    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
+    ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
+    ENV["SIFDECODE"] = Formula["sifdecode"].opt_libexec
     system "./install_cutest < cutest.input"
 
     # Build shared libraries.
@@ -145,9 +145,9 @@ class Cutest < Formula
 
   test do
     machine, arch, compiler = File.read(prefix / "cutest.machine").split
-    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
-    ENV["SIFDECODE"] = Formula["sifdecode"].libexec
-    ENV["CUTEST"] = libexec
+    ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
+    ENV["SIFDECODE"] = Formula["sifdecode"].opt_libexec
+    ENV["CUTEST"] = opt_libexec
     ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
     ENV["MASTSIF"] = "#{libexec}/sif"
 

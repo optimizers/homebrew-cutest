@@ -44,7 +44,7 @@ class Sifdecode < Formula
       EOF
     end
 
-    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
+    ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
     system "./install_sifdecode < sifdecode.input"
 
     # We only want certain links in /usr/local/bin.
@@ -77,8 +77,8 @@ class Sifdecode < Formula
 
   test do
     machine, arch, compiler = File.read(prefix / "sifdecode.machine").split
-    ENV["ARCHDEFS"] = Formula["archdefs"].libexec
-    ENV["SIFDECODE"] = libexec
+    ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
+    ENV["SIFDECODE"] = opt_libexec
     ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
     ENV["MASTSIF"] = "#{libexec}/sif"
 
