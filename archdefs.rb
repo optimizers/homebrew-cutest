@@ -20,6 +20,14 @@ class Archdefs < Formula
     (libexec / "bin").install Dir["bin/*"]
     bin.install_symlink "#{libexec}/bin/install_optsuite"
 
+    mach = MacOS.prefer_64_bit? ? "mac64" : "mac"
+    if ENV["CUTEST_GFORTRAN"]
+      inreplace "compiler.#{mach}.osx.gfo", "FORTRAN='gfortran'", "FORTRAN=#{ENV["CUTEST_GFORTRAN"]}"
+    end
+    if ENV["CUTEST_GCC"]
+      inreplace "ccompiler.#{mach}.osx.gcc", "CC=gcc", "CC=#{ENV["CUTEST_GCC"]}"
+    end
+
     libexec.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
     Pathname.new("#{prefix}/archdefs.bashrc").write <<-EOF.undent
       export ARCHDEFS=#{opt_libexec}
