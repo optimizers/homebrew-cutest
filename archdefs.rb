@@ -20,12 +20,19 @@ class Archdefs < Formula
     (libexec / "bin").install Dir["bin/*"]
     bin.install_symlink "#{libexec}/bin/install_optsuite"
 
-    mach = MacOS.prefer_64_bit? ? "mac64" : "mac"
+    # let user specify what version of gcc/gfortran they wish to use
+    if OS.mac?
+      mach = MacOS.prefer_64_bit? ? "mac64" : "mac"
+      arch = "osx"
+    else
+      mach = "pc64"
+      arch = "lnx"
+    end
     if ENV["CUTEST_GFORTRAN"]
-      inreplace "compiler.#{mach}.osx.gfo", "FORTRAN='gfortran'", "FORTRAN=#{ENV["CUTEST_GFORTRAN"]}"
+      inreplace "compiler.#{mach}.#{arch}.gfo", "FORTRAN='gfortran'", "FORTRAN=#{ENV["CUTEST_GFORTRAN"]}"
     end
     if ENV["CUTEST_GCC"]
-      inreplace "ccompiler.#{mach}.osx.gcc", "CC=gcc", "CC=#{ENV["CUTEST_GCC"]}"
+      inreplace "ccompiler.#{mach}.#{arch}.gcc", "CC=gcc", "CC=#{ENV["CUTEST_GCC"]}"
     end
 
     libexec.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
