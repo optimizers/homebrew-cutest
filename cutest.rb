@@ -35,10 +35,10 @@ class Cutest < Formula
     single = (build.with? "single") ? "y" : "n"
     precisions = (build.with? "single") ? ["single", "double"] : ["double"]
 
-    opoo "Portland Group compilers are not officially compatible with Matlab" if ((build.with? "matlab") && (build.with? "pgi"))
+    opoo "Portland Group compilers are not officially compatible with Matlab" if build.with?("matlab") && build.with?("pgi")
 
     if OS.mac?
-      machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
+      machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
       fcomp = (build.with? "pgi") ? "5" : "2"
       ccomp = (build.with? "pgi") ? "5" : "4"
@@ -118,8 +118,8 @@ class Cutest < Formula
         export MATLABPATH=$MATLABPATH:#{opt_libexec}/src/matlab
       EOS
     end
-    (prefix / "cutest.bashrc").write(s)
-    (prefix / "cutest.machine").write <<-EOF.undent
+    (prefix/"cutest.bashrc").write(s)
+    (prefix/"cutest.machine").write <<-EOF.undent
       #{machine}
       #{arch}
       #{compiler}
@@ -144,17 +144,17 @@ class Cutest < Formula
   end
 
   test do
-    machine, arch, compiler = File.read(prefix / "cutest.machine").split
+    machine, arch, compiler = File.read(opt_prefix/"cutest.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].opt_libexec
     ENV["CUTEST"] = opt_libexec
     ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
-    ENV["MASTSIF"] = "#{libexec}/sif"
+    ENV["MASTSIF"] = "#{opt_libexec}/sif"
 
     cd testpath do
       %w[gen77 gen90 genc].each do |pkg|
-        system "runcutest", "-p", pkg, "-D", "#{libexec}/sif/ROSENBR.SIF"
-        system "runcutest", "-p", pkg, "-sp", "-D", "#{libexec}/sif/ROSENBR.SIF" if build.with? "single"
+        system "runcutest", "-p", pkg, "-D", "ROSENBR.SIF"
+        system "runcutest", "-p", pkg, "-sp", "-D", "ROSENBR.SIF" if build.with? "single"
       end
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/cutest."

@@ -24,7 +24,7 @@ class Sifdecode < Formula
     ENV.deparallelize
 
     if OS.mac?
-      machine, key = (MacOS.prefer_64_bit?) ? %w[mac64 13] : %w[mac 12]
+      machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
       comp = (build.with? "pgi") ? "5" : "2"
       Pathname.new("sifdecode.input").write <<-EOF.undent
@@ -58,11 +58,11 @@ class Sifdecode < Formula
     lib.install_symlink Dir["#{libexec}/objects/#{machine}.#{arch}.gfo/double/*.a"]
 
     compiler = (build.with? "pgi") ? "pgf" : "gfo"
-    (prefix / "sifdecode.bashrc").write <<-EOF.undent
+    (prefix/"sifdecode.bashrc").write <<-EOF.undent
       export SIFDECODE=#{opt_libexec}
       export MYARCH=#{machine}.#{arch}.#{compiler}
     EOF
-    (prefix / "sifdecode.machine").write <<-EOF.undent
+    (prefix/"sifdecode.machine").write <<-EOF.undent
       #{machine}
       #{arch}
       #{compiler}
@@ -76,14 +76,14 @@ class Sifdecode < Formula
   end
 
   test do
-    machine, arch, compiler = File.read(prefix / "sifdecode.machine").split
+    machine, arch, compiler = File.read(opt_prefix/"sifdecode.machine").split
     ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
     ENV["SIFDECODE"] = opt_libexec
     ENV["MYARCH"] = "#{machine}.#{arch}.#{compiler}"
-    ENV["MASTSIF"] = "#{libexec}/sif"
+    ENV["MASTSIF"] = "#{opt_libexec}/sif"
 
     cd testpath do
-      system "sifdecoder", "#{libexec}/sif/ROSENBR.SIF"
+      system "sifdecoder", "#{opt_libexec}/sif/ROSENBR.SIF"
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
