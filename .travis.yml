@@ -29,5 +29,5 @@ env:
 
 script:
   #- brew audit $PACKAGE --strict  # Fails for now b/c head only.
-  - CUTEST_GCC=gcc-5 CUTEST_GFORTRAN=gfortran-5 brew install -v $PACKAGE
+  - brew install -v $PACKAGE
   - brew test -v $PACKAGE
