@@ -6,6 +6,8 @@ os:
   - osx
   - linux
 
+osx_image: xcode7.3
+
 install:
   - unset DYLD_LIBRARY_PATH
   - if [ `uname` = "Linux" ]; then bash setup_travis_linux.sh; fi
