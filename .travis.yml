@@ -16,8 +16,6 @@ install:
   - if [ `uname` = "Linux" ]; then brew install pkg-config; fi
   - brew update
   - brew tap homebrew/science
-  - brew tap homebrew/versions
-  - brew install gcc5  # gfortran 6.1 is buggy and can't compile sifdecode
   # Install homebrew/cutest as tap.
   - mkdir -p $(brew --repo)/Library/Taps/optimizers
   - ln -s $PWD $(brew --repo)/Library/Taps/optimizers/homebrew-cutest
