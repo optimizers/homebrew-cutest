@@ -85,7 +85,7 @@ class Cutest < Formula
       cd "objects/#{machine}.#{arch}.#{compiler}/#{prec}" do
         Dir["*.a"].each do |l|
           lname = File.basename(l, ".a") + "_#{prec}.#{so}"
-          system ENV["FC"], "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
+          system "gfortran", "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
         end
       end
     end
