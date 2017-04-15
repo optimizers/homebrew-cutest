@@ -4,12 +4,7 @@ set -ev
 # Install LinuxBrew.
 sudo apt-get update
 sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev libgsl0-dev
-echo -ne '\n' | ruby -e "$(wget -O- https://raw.github.com/Homebrew/linuxbrew/go/install)"
-
-# Fix
-# /home/travis/.linuxbrew/Library/ENV/scm/git: No such file or directory
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-cd "$(brew --repository)" && git fetch && git reset --hard origin/master
+echo -ne '\n' | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 
 # Symlink GCC to avoid installing Homebrew GCC.
 gccver=$(gcc -dumpversion |cut -d. -f1,2)
