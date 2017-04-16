@@ -52,8 +52,8 @@ class Cutest < Formula
     else
       machine = "pc64"
       arch = "lnx"
-      fcomp = (build.with? "pgi") ? "7" : "2"
-      ccomp = (build.with? "pgi") ? "6" : "4"
+      fcomp = (build.with? "pgi") ? "7" : "4"
+      ccomp = (build.with? "pgi") ? "6" : "7"
       Pathname.new("cutest.input").write <<-EOF.undent
         6
         2
