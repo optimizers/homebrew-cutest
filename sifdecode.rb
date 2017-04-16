@@ -35,7 +35,7 @@ class Sifdecode < Formula
     else
       machine = "pc64"
       arch = "lnx"
-      comp = (build.with? "pgi") ? "7" : "2"
+      comp = (build.with? "pgi") ? "7" : "4"
       Pathname.new("sifdecode.input").write <<-EOF.undent
         6
         2
