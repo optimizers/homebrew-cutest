@@ -83,7 +83,7 @@ class Sifdecode < Formula
     ENV["MASTSIF"] = "#{opt_libexec}/sif"
 
     cd testpath do
-      system "sifdecoder", "#{opt_libexec}/sif/ROSENBR.SIF"
+      system "#{bin}/sifdecoder", "#{opt_libexec}/sif/ROSENBR.SIF"
     end
     ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
