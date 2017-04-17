@@ -2,11 +2,13 @@ language: ruby
 
 sudo: required
 
-os:
-  - osx
-  - linux
-
-osx_image: xcode7.3
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode8.1
+      rvm: system
+    - os: linux
+      rvm: 2.0.0
 
 install:
   - unset DYLD_LIBRARY_PATH
@@ -21,14 +23,5 @@ install:
   - ln -s $PWD $(brew --repo)/Library/Taps/optimizers/homebrew-cutest
   - brew tap --repair
 
-env:
-  - PACKAGE=archdefs
-  - PACKAGE=sifdecode
-  - PACKAGE=cutest
-  - PACKAGE=mastsif
-  - PACKAGE=maros_meszaros
-
 script:
-  #- brew audit $PACKAGE --strict  # Fails for now b/c head only.
-  - brew install -v $PACKAGE
-  - brew test -v $PACKAGE
+  - brew test-bot --tap=optimizers/cutest
