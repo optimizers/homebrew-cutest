@@ -10,8 +10,8 @@ end
 class Archdefs < Formula
   desc "Architecture definition files for CUTEst"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
-  url "https://github.com/optimizers/archdefs-mirror/archive/v0.1.tar.gz"
-  sha256 "8f26bbdd2e9f05b76fdcdce33a300df4c67dce981170e47fc27955bd355e3f6e"
+  url "https://github.com/optimizers/archdefs-mirror/archive/v0.2.tar.gz"
+  sha256 "43b1134cf302e2a1de0d3b33c2a0bcd73573a3e20f50de096e16ee34405cc175"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/archdefs/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"

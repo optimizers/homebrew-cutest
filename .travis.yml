@@ -26,6 +26,7 @@ env:
   - PACKAGE=sifdecode
   - PACKAGE=cutest
   - PACKAGE=mastsif
+  - PACKAGE=maros_meszaros
 
 script:
   #- brew audit $PACKAGE --strict  # Fails for now b/c head only.

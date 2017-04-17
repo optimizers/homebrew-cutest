@@ -10,8 +10,8 @@ end
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
-  url "https://github.com/optimizers/cutest-mirror/archive/v0.2.tar.gz"
-  sha256 "91c50cef402387be69a8a68718201e0f899f846d7b69d4129e121c9f10f5f377"
+  url "https://github.com/optimizers/cutest-mirror/archive/v0.3.tar.gz"
+  sha256 "166a767d1ac79d3ce94ce62b233d7e5df855c379f819fc72237b7145c416787c"
   head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"
@@ -41,7 +41,7 @@ class Cutest < Formula
       machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
       fcomp = (build.with? "pgi") ? "5" : "2"
-      ccomp = (build.with? "pgi") ? "5" : "4"
+      ccomp = (build.with? "pgi") ? "6" : "5"
       Pathname.new("cutest.input").write <<-EOF.undent
         #{key}
         #{fcomp}
@@ -52,8 +52,8 @@ class Cutest < Formula
     else
       machine = "pc64"
       arch = "lnx"
-      fcomp = (build.with? "pgi") ? "7" : "2"
-      ccomp = (build.with? "pgi") ? "6" : "4"
+      fcomp = (build.with? "pgi") ? "7" : "4"
+      ccomp = (build.with? "pgi") ? "6" : "7"
       Pathname.new("cutest.input").write <<-EOF.undent
         6
         2
