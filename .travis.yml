@@ -13,7 +13,7 @@ matrix:
 install:
   - unset DYLD_LIBRARY_PATH
   - if [ `uname` = "Linux" ]; then bash setup_travis_linux.sh; fi
-  - if [ `uname` = "Linux" ]; then export PATH="$HOME/.linuxbrew/bin:$PATH"; fi
+  - if [ `uname` = "Linux" ]; then export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"; fi
   - if [ `uname` = "Linux" ]; then brew install pkg-config; fi
   - brew tap homebrew/science
   # Install homebrew/cutest as tap.
