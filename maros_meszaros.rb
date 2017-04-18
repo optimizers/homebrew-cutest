@@ -12,7 +12,7 @@ class MarosMeszaros < Formula
   homepage "http://www.cuter.rl.ac.uk/Problems/marmes.shtml"
   url "https://github.com/optimizers/maros-meszaros-mirror/archive/v0.1.tar.gz"
   sha256 "eddc5e831f14be08e823d464ccb78834ef9e9120211f00f7724c0258c64fc14c"
-  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
+  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"
 

@@ -12,7 +12,7 @@ class Sifdecode < Formula
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   url "https://github.com/optimizers/sifdecode-mirror/archive/v0.4.tar.gz"
   sha256 "02330c3ba7b024bf8c37bd0bc58c53b2cfb01b8e7446eca502ae231755014fc1"
-  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk", :using => AnonymousSubversionDownloadStrategy
+  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/sifdecode/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-pgi", "build with Portland Group compiler"
 

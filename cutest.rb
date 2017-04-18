@@ -12,7 +12,7 @@ class Cutest < Formula
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   url "https://github.com/optimizers/cutest-mirror/archive/v0.3.tar.gz"
   sha256 "166a767d1ac79d3ce94ce62b233d7e5df855c379f819fc72237b7145c416787c"
-  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
+  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
 
   option "with-matlab", "Compile with Matlab support"
   option "with-pgi", "build with Portland Group compilers"
