@@ -12,7 +12,7 @@ class Archdefs < Formula
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   url "https://github.com/optimizers/archdefs-mirror/archive/v0.2.tar.gz"
   sha256 "43b1134cf302e2a1de0d3b33c2a0bcd73573a3e20f50de096e16ee34405cc175"
-  head "http://ccpforge.cse.rl.ac.uk/svn/cutest/archdefs/trunk", :using => AnonymousSubversionDownloadStrategy
+  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/archdefs/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"
 
