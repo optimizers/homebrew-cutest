@@ -13,13 +13,13 @@ git clone https://github.com/Linuxbrew/brew $LINUXBREW
 
 # Symlink GCC to avoid installing Homebrew GCC.
 gccver=$(gcc -dumpversion |cut -d. -f1,2)
-ln -s $(which gcc) $LINUXBREW/.linuxbrew/bin/gcc-${gccver}
-ln -s $(which g++) $LINUXBREW/.linuxbrew/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
+ln -s $(which gcc) $LINUXBREW/bin/gcc-${gccver}
+ln -s $(which g++) $LINUXBREW/bin/g++-$(g++ -dumpversion |cut -d. -f1,2)
 
 # Ensure GFORTRAN is available.
 sudo apt-get -y install gfortran-${gccver}
-ln -s $(which gfortran-${gccver}) $LINUXBREW/.linuxbrew/bin/gfortran-${gccver}
-ln -s $(which gfortran-${gccver}) $LINUXBREW/.linuxbrew/bin/gfortran
+ln -s $(which gfortran-${gccver}) $LINUXBREW/bin/gfortran-${gccver}
+ln -s $(which gfortran-${gccver}) $LINUXBREW/bin/gfortran
 
 # Ensure BLAS and LAPACK are available.
 sudo apt-get -y install libblas-dev liblapack-dev
