@@ -19,6 +19,7 @@ install:
   # Install homebrew/cutest as tap.
   - mkdir -p $(brew --repo)/Library/Taps/optimizers
   - ln -s $PWD $(brew --repo)/Library/Taps/optimizers/homebrew-cutest
+  - chmod 0644 $(brew --repo)/Library/Taps/optimizers/homebrew-cutest/*.rb
   - brew tap --repair
   - brew update
 
