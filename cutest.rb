@@ -92,7 +92,7 @@ class Cutest < Formula
 
     # We only want certain links in /usr/local/bin.
     libexec.install Dir["*"]
-    %w[cutest2matlab runcutest].each do |f|
+    %w[cutest2matlab_osx runcutest].each do |f|
       bin.install_symlink "#{libexec}/bin/#{f}"
     end
 
