@@ -10,8 +10,8 @@ end
 class Mastsif < Formula
   desc "SIF problem collection"
   homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
-  url "https://gitlab.com/dpo/mastsif-mirror/repository/archive.tar.bz2?ref=v0.3"
-  sha256 "18fb05e71d0c2b65a2d2fd6869fe732817fefb1b7bd64803058e4b7e3af35eb4"
+  url "https://gitlab.com/dpo/mastsif-mirror/repository/v0.4/archive.tar.bz2"
+  sha256 "80aea1e93796b572c2b75ed603f2871d8eee6e3d1c73e6d9d719fa0607f23135"
   head "https://ccpforge.cse.rl.ac.uk/svn/cutest/sif/trunk", :using => AnonymousSubversionDownloadStrategy
 
   keg_only "This formula only installs data files"
