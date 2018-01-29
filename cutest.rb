@@ -9,7 +9,7 @@ end
 
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
-  homepage "http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
+  homepage "https://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
   url "https://github.com/optimizers/cutest-mirror/archive/v0.4.tar.gz"
   sha256 "21711f7517ea5b56148fc558eb82c03b4babe3c0cb1c3fe6a9b1d8f7a61f22bc"
   head "https://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
@@ -24,7 +24,7 @@ class Cutest < Formula
 
   # We still require :fortran to create shared libraries. The options
   # -all_load and -noall_load don't sit well with pgfortran.
-  depends_on :fortran
+  depends_on "gcc"
   env :std
 
   patch :DATA
@@ -42,7 +42,7 @@ class Cutest < Formula
       arch = "osx"
       fcomp = (build.with? "pgi") ? "5" : "2"
       ccomp = (build.with? "pgi") ? "6" : "5"
-      Pathname.new("cutest.input").write <<-EOF.undent
+      Pathname.new("cutest.input").write <<~EOF
         #{key}
         #{fcomp}
         #{toolset}
@@ -54,7 +54,7 @@ class Cutest < Formula
       arch = "lnx"
       fcomp = (build.with? "pgi") ? "7" : "4"
       ccomp = (build.with? "pgi") ? "6" : "7"
-      Pathname.new("cutest.input").write <<-EOF.undent
+      Pathname.new("cutest.input").write <<~EOF
         6
         2
         #{fcomp}
@@ -109,17 +109,17 @@ class Cutest < Formula
       ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/single/libcutest_single.#{so}", "#{lib}/libcutest_single.#{so}"
     end
 
-    s = <<-EOS.undent
+    s = <<~EOS
       export CUTEST=#{opt_libexec}
     EOS
     if build.with? "matlab"
-      s += <<-EOS.undent
+      s += <<~EOS
         export MYMATLABARCH=#{machine}.#{arch}.#{compiler}
         export MATLABPATH=$MATLABPATH:#{opt_libexec}/src/matlab
       EOS
     end
     (prefix/"cutest.bashrc").write(s)
-    (prefix/"cutest.machine").write <<-EOF.undent
+    (prefix/"cutest.machine").write <<~EOF
       #{machine}
       #{arch}
       #{compiler}
@@ -127,12 +127,12 @@ class Cutest < Formula
   end
 
   def caveats
-    s = <<-EOS.undent
+    s = <<~EOS
       In your ~/.bashrc, add
       . #{prefix}/cutest.bashrc
     EOS
     if build.with? "matlab"
-      s += <<-EOS.undent
+      s += <<~EOS
         export MYMATLAB=/path/to/your/matlab
 
         Please also look at
