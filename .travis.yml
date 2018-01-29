@@ -5,10 +5,10 @@ sudo: required
 matrix:
   include:
     - os: osx
-      osx_image: xcode8.1
+      osx_image: xcode9.2
       rvm: system
     - os: linux
-      rvm: 2.0.0
+      rvm: 2.3
 
 install:
   - unset DYLD_LIBRARY_PATH
