@@ -22,6 +22,7 @@ install:
   - chmod 0644 $(brew --repo)/Library/Taps/optimizers/homebrew-cutest/*.rb
   - brew tap --repair
   - brew update
+  - if [ `uname` == "Darwin" ]; then brew install svn; fi  # avoid annoyances with certificates
 
 script:
   - brew test-bot --tap=optimizers/cutest

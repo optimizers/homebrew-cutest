@@ -50,6 +50,7 @@ jobs:
           git reset --hard origin/master
           brew --env
           brew config
+          brew install svn  # avoid annoyances with certificates
       - checkout
       - run: |
           git remote set-url origin $CIRCLE_REPOSITORY_URL
