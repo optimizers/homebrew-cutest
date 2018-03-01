@@ -1,18 +1,9 @@
-# CCPForge requires that svn checkouts be done with --username anonymous.
-# This should be available in Homebrew by default in the near future.
-
-class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def quiet_safe_system(*args)
-    super(*args + ["--username", "anonymous"])
-  end
-end
-
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
-  homepage "https://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
-  url "https://github.com/optimizers/cutest-mirror/archive/v0.4.tar.gz"
-  sha256 "21711f7517ea5b56148fc558eb82c03b4babe3c0cb1c3fe6a9b1d8f7a61f22bc"
-  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/cutest/trunk", :using => AnonymousSubversionDownloadStrategy
+  homepage "https://github.com/ralna/CUTEst/wiki"
+  url "https://github.com/ralna/CUTEst/archive/v2.0.0.tar.gz"
+  sha256 "e7cee29e8b0355873753e70460fa50c0893ec954ec9a0ff6c4a7684e375e1916"
+  head "https://github.com/ralna/CUTEst.git"
 
   option "with-matlab", "Compile with Matlab support"
   option "with-pgi", "build with Portland Group compilers"
