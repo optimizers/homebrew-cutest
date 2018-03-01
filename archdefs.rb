@@ -1,18 +1,9 @@
-# CCPForge requires that svn checkouts be done with --username anonymous.
-# This should be available in Homebrew by default in the near future.
-
-class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def quiet_safe_system(*args)
-    super(*args + ["--username", "anonymous"])
-  end
-end
-
 class Archdefs < Formula
   desc "Architecture definition files for CUTEst"
-  homepage "https://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki"
-  url "https://github.com/optimizers/archdefs-mirror/archive/v0.2.tar.gz"
-  sha256 "43b1134cf302e2a1de0d3b33c2a0bcd73573a3e20f50de096e16ee34405cc175"
-  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/archdefs/trunk", :using => AnonymousSubversionDownloadStrategy
+  homepage "https://github.com/ralna/ARCHDefs/wiki"
+  url "https://github.com/ralna/ARCHDefs/archive/v2.0.0.tar.gz"
+  sha256 "c6834e7d879e70502a29ef5a906ee84d3793f3f456d80c0bf5f71712242a9edd"
+  head "https://github.com/ralna/ARCHDefs.git"
 
   keg_only "this formula only installs data files"
 
