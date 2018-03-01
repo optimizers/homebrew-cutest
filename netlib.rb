@@ -1,5 +1,5 @@
 class Netlib < Formula
-  desc "Netlib SIF problems"
+  desc "All NETLIB SIF problems"
   homepage "http://www.cuter.rl.ac.uk/Problems/netlib.shtml"
   url "ftp://ftp.numerical.rl.ac.uk/pub/cuter/netlib.tar.gz"
   version "1.0"
