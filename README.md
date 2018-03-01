@@ -38,6 +38,10 @@ Now we can install CUTEst and, at your option, the entire SIF collection:
 
     brew install cutest [--with-matlab] [--without-single] [--with-pgi]
     brew install mastsif  # If you want the whole SIF collection.
+    brew install maros_mezaros #If you want the Maros-Mezaros collection
+    brew install netlib #If you want the NETLIB LP collection
+
+Both `maros_mezaros` and `netlib` commands only install data files.  
 
 The option `--without-single` will prevent the single precision library from being built.
 The option `--with-pgi` will build CUTEst and SIFDecode with the PGI compilers, which are assumed to be available.
