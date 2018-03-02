@@ -7,6 +7,9 @@ class Archdefs < Formula
 
   keg_only "this formula only installs data files"
 
+  # should be part of next release
+  patch :DATA
+
   def install
     (libexec / "bin").install Dir["bin/*"]
     bin.install_symlink "#{libexec}/bin/install_optsuite"
@@ -42,3 +45,26 @@ class Archdefs < Formula
     true
   end
 end
+
+__END__
+diff --git a/ccompiler.pc64.lnx.gcc b/ccompiler.pc64.lnx.gcc
+index 85e32ef..244b79a 100644
+--- a/ccompiler.pc64.lnx.gcc
++++ b/ccompiler.pc64.lnx.gcc
+@@ -4,13 +4,13 @@
+ #  C compilation and loading
+ #
+ 
+-CC=gcc-4.9
++CC=gcc
+ CCBASIC='-c -fPIC'
+ CCISO='-ansi -pedantic' # -pedantic-errors'
+ CCDEBUG= #-g -DDEBUG_GALAHAD
+ CCFFLAGS='-lgfortran -lm'
+ 
+-CXX=g++-4.9
++CXX=g++
+ CXXBASIC='-c -std=c++11 -fPIC'
+ CXXOPT=-O2
+ CXXNOOPT=-O0
+
