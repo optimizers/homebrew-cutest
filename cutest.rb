@@ -9,7 +9,7 @@ class Cutest < Formula
   option "with-pgi", "build with Portland Group compilers"
   option "without-single", "Compile without single support"
 
-  depends_on "gsl@1"
+  depends_on "optimizers/cutest/gsl@1"
   depends_on "optimizers/cutest/archdefs"
   depends_on "optimizers/cutest/sifdecode" => ((build.with? "pgi") ? ["with-pgi"] : [])
 
