@@ -1,14 +1,11 @@
 class Archdefs < Formula
   desc "Architecture definition files for CUTEst"
   homepage "https://github.com/ralna/ARCHDefs/wiki"
-  url "https://github.com/ralna/ARCHDefs/archive/v2.0.0.tar.gz"
-  sha256 "c6834e7d879e70502a29ef5a906ee84d3793f3f456d80c0bf5f71712242a9edd"
+  url "https://github.com/ralna/ARCHDefs/archive/v2.0.3.tar.gz"
+  sha256 "f57f7c2912187c60a988c5a5707bce783ff93d414a46dd1dc51657a4bba54fbe"
   head "https://github.com/ralna/ARCHDefs.git"
 
   keg_only "this formula only installs data files"
-
-  # should be part of next release
-  patch :DATA
 
   def install
     (libexec / "bin").install Dir["bin/*"]
@@ -38,33 +35,10 @@ class Archdefs < Formula
   def caveats; <<~EOS
     In your ~/.bashrc, add the line
     . #{prefix}/archdefs.bashrc
-    EOS
+  EOS
   end
 
   test do
-    true
+    File.file? opt_libexec/"compiler.mac.osx.gfo"
   end
 end
-
-__END__
-diff --git a/ccompiler.pc64.lnx.gcc b/ccompiler.pc64.lnx.gcc
-index 85e32ef..244b79a 100644
---- a/ccompiler.pc64.lnx.gcc
-+++ b/ccompiler.pc64.lnx.gcc
-@@ -4,13 +4,13 @@
- #  C compilation and loading
- #
- 
--CC=gcc-4.9
-+CC=gcc
- CCBASIC='-c -fPIC'
- CCISO='-ansi -pedantic' # -pedantic-errors'
- CCDEBUG= #-g -DDEBUG_GALAHAD
- CCFFLAGS='-lgfortran -lm'
- 
--CXX=g++-4.9
-+CXX=g++
- CXXBASIC='-c -std=c++11 -fPIC'
- CXXOPT=-O2
- CXXNOOPT=-O0
-
