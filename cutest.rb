@@ -1,38 +1,38 @@
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "https://github.com/ralna/CUTEst/wiki"
-  url "https://github.com/ralna/CUTEst/archive/v2.0.0.tar.gz"
-  sha256 "e7cee29e8b0355873753e70460fa50c0893ec954ec9a0ff6c4a7684e375e1916"
+  url "https://github.com/ralna/CUTEst/archive/v2.0.2.tar.gz"
+  sha256 "16ff35ff5956dfc6715250a26f7e5fa171b166fea5a60aeee2d6e232b22de954"
   head "https://github.com/ralna/CUTEst.git"
 
   option "with-matlab", "Compile with Matlab support"
   option "with-pgi", "build with Portland Group compilers"
   option "without-single", "Compile without single support"
 
-  depends_on "optimizers/cutest/gsl@1"
-  depends_on "optimizers/cutest/archdefs"
-  depends_on "optimizers/cutest/sifdecode" => ((build.with? "pgi") ? ["with-pgi"] : [])
-
   # We still require :fortran to create shared libraries. The options
   # -all_load and -noall_load don't sit well with pgfortran.
   depends_on "gcc"
+
+  depends_on "optimizers/cutest/archdefs"
+  depends_on "optimizers/cutest/gsl@1"
+  depends_on "optimizers/cutest/sifdecode" => (build.with?("pgi") ? ["with-pgi"] : [])
   env :std
 
   patch :DATA
 
   def install
     ENV.deparallelize
-    toolset = (build.with? "matlab") ? "1" : "2"
-    single = (build.with? "single") ? "y" : "n"
-    precisions = (build.with? "single") ? ["single", "double"] : ["double"]
+    toolset = build.with?("matlab") ? "1" : "2"
+    single = build.with?("single") ? "y" : "n"
+    precisions = build.with?("single") ? ["single", "double"] : ["double"]
 
     opoo "Portland Group compilers are not officially compatible with Matlab" if build.with?("matlab") && build.with?("pgi")
 
     if OS.mac?
       machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
-      fcomp = (build.with? "pgi") ? "5" : "2"
-      ccomp = (build.with? "pgi") ? "6" : "5"
+      fcomp = build.with?("pgi") ? "5" : "2"
+      ccomp = build.with?("pgi") ? "6" : "5"
       Pathname.new("cutest.input").write <<~EOF
         #{key}
         #{fcomp}
@@ -43,8 +43,8 @@ class Cutest < Formula
     else
       machine = "pc64"
       arch = "lnx"
-      fcomp = (build.with? "pgi") ? "7" : "4"
-      ccomp = (build.with? "pgi") ? "6" : "7"
+      fcomp = build.with?("pgi") ? "7" : "4"
+      ccomp = build.with?("pgi") ? "6" : "7"
       Pathname.new("cutest.input").write <<~EOF
         6
         2
@@ -71,7 +71,7 @@ class Cutest < Formula
       noall_load = "-Wl,-no-whole-archive"
       extra = []
     end
-    compiler = (build.with? "pgi") ? "pgf" : "gfo"
+    compiler = build.with?("pgi") ? "pgf" : "gfo"
     precisions.each do |prec|
       cd "objects/#{machine}.#{arch}.#{compiler}/#{prec}" do
         Dir["*.a"].each do |l|
