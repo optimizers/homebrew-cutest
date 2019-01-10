@@ -29,7 +29,7 @@ class Cutest < Formula
     opoo "Portland Group compilers are not officially compatible with Matlab" if build.with?("matlab") && build.with?("pgi")
 
     if OS.mac?
-      machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
+      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
       fcomp = build.with?("pgi") ? "5" : "2"
       ccomp = build.with?("pgi") ? "6" : "5"
