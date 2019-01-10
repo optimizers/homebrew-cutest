@@ -15,7 +15,7 @@ class Sifdecode < Formula
     ENV.deparallelize
 
     if OS.mac?
-      machine, key = MacOS.prefer_64_bit? ? %w[mac64 13] : %w[mac 12]
+      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
       comp = build.with?("pgi") ? "5" : "2"
       Pathname.new("sifdecode.input").write <<~EOF
