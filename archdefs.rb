@@ -13,7 +13,7 @@ class Archdefs < Formula
 
     # let user specify what version of gcc/gfortran they wish to use
     if OS.mac?
-      mach = MacOS.prefer_64_bit? ? "mac64" : "mac"
+      mach = Hardware::CPU.is_64_bit? ? "mac64" : "mac"
       arch = "osx"
     else
       mach = "pc64"
