@@ -5,7 +5,7 @@ sudo: required
 matrix:
   include:
     - os: osx
-      osx_image: xcode9.2
+      osx_image: xcode10.1
       rvm: system
     - os: linux
       rvm: 2.3
@@ -13,8 +13,13 @@ matrix:
 install:
   - unset DYLD_LIBRARY_PATH
   - if [ `uname` = "Linux" ]; then bash setup_travis_linux.sh; fi
-  - if [ `uname` = "Linux" ]; then export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"; fi
-  - if [ `uname` = "Linux" ]; then brew install pkg-config; fi
+  - if [ `uname` = "Linux" ]; then
+      export PATH=$(echo $PATH | sed -e 's/:\/opt\/pyenv\/shims//g');
+      export PATH=$(echo $PATH | sed -e 's/:\/home\/travis\/.phpenv\/shims//g');
+      export PATH=$(echo $PATH | sed -e 's/:\/usr\/local\/clang-7.0.0\/bin//g');
+      export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH";
+      echo $PATH;
+    fi
   # Install homebrew-cutest as tap.
   - mkdir -p $(brew --repo)/Library/Taps/optimizers
   - ln -s $PWD $(brew --repo)/Library/Taps/optimizers/homebrew-cutest
@@ -24,4 +29,4 @@ install:
   - if [ `uname` == "Darwin" ]; then brew install svn; fi  # avoid annoyances with certificates
 
 script:
-  - brew test-bot --tap=optimizers/cutest
+  - brew test-bot --skip-setup --tap=optimizers/cutest
