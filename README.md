@@ -1,6 +1,7 @@
 # Homebrew's [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) Tap
 
 [![Build Status](https://travis-ci.org/optimizers/homebrew-cutest.svg?branch=master)](https://travis-ci.org/optimizers/homebrew-cutest)
+[![CircleCI](https://circleci.com/gh/optimizers/homebrew-cutest/tree/master.svg?style=svg)](https://circleci.com/gh/optimizers/homebrew-cutest/tree/master)
 
 ## For the Impatient
 
