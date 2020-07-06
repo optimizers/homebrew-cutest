@@ -24,8 +24,6 @@ jobs:
           mkdir -p $repo
           cp -a ./ $repo/
           brew install patchelf pkg-config
-          brew tap linuxbrew/xorg
-          brew install xorg
           brew tap-pin optimizers/cutest
       - run:
           command: brew test-bot --tap=optimizers/cutest
@@ -33,7 +31,7 @@ jobs:
 
   build-macos:
     macos:
-      xcode: "9.2.0"
+      xcode: "11.5.0"
     environment:
       CIRCLE_REPOSITORY_URL: https://github.com/optimizers/homebrew-cutest
       HOMEBREW_DEVELOPER: 1
