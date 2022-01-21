@@ -3,7 +3,7 @@ class Netlib < Formula
   homepage "https://bitbucket.org/optrove/netlib-lp"
   url "https://bitbucket.org/optrove/netlib-lp/get/v0.1.tar.gz"
   sha256 "e5b7d4128a0bde757ac59182228f80a33828ccc62c1764a33de722b096c0dd9a"
-  revision 2
+  revision 3
 
   head "https://bitbucket.org/optrove/netlib-lp.git"
 

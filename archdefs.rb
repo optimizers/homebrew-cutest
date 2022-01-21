@@ -3,7 +3,7 @@ class Archdefs < Formula
   homepage "https://github.com/ralna/ARCHDefs/wiki"
   url "https://github.com/ralna/ARCHDefs/archive/v2.0.3.tar.gz"
   sha256 "f57f7c2912187c60a988c5a5707bce783ff93d414a46dd1dc51657a4bba54fbe"
-  revision 1
+  revision 2
 
   head "https://github.com/ralna/ARCHDefs.git"
 
