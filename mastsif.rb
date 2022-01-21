@@ -3,7 +3,7 @@ class Mastsif < Formula
   homepage "https://bitbucket.org/optrove/sif"
   url "https://bitbucket.org/optrove/sif/get/v0.5.tar.gz"
   sha256 "d2a7e0956e5216a4ad2a51a3a8219711e5f4f729cb3f044d4133d8fb19d0172d"
-  revision 1
+  revision 2
 
   head "https://bitbucket.org/optrove/sif.git"
 
