@@ -1,9 +1,10 @@
 class Mastsif < Formula
   desc "SIF problem collection"
   homepage "https://bitbucket.org/optrove/sif"
-  url "https://bitbucket.org/optrove/sif/get/v0.5.tar.bz2"
-  sha256 "19c1549c325dd2e431fd6f54392ed8598a3017b751f433da8891d711d34348b6"
+  url "https://bitbucket.org/optrove/sif/get/v0.5.tar.gz"
+  sha256 "d2a7e0956e5216a4ad2a51a3a8219711e5f4f729cb3f044d4133d8fb19d0172d"
   head "https://bitbucket.org/optrove/sif.git"
+  revision 1
 
   keg_only "this formula only installs data files"
 
