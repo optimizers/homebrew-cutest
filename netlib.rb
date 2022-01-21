@@ -1,9 +1,10 @@
 class Netlib < Formula
   desc "All NETLIB SIF problems"
-  homepage "http://www.cuter.rl.ac.uk/Problems/netlib.shtml"
-  url "https://bitbucket.org/optrove/netlib-lp/get/v0.1.tar.bz2"
-  sha256 "b24eb91097ef073ff66c7c6e20b213bfe8b1be6f5dcdb5cb7de38ebc44c77f88"
-  revision 1
+  homepage "https://bitbucket.org/optrove/netlib-lp"
+  url "https://bitbucket.org/optrove/netlib-lp/get/v0.1.tar.gz"
+  sha256 "e5b7d4128a0bde757ac59182228f80a33828ccc62c1764a33de722b096c0dd9a"
+  revision 2
+
   head "https://bitbucket.org/optrove/netlib-lp.git"
 
   keg_only "this formula only installs data files"

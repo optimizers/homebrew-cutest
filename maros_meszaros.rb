@@ -1,18 +1,11 @@
-# CCPForge requires that svn checkouts be done with --username anonymous.
-# This should be available in Homebrew by default in the near future.
-
-class AnonymousSubversionDownloadStrategy < SubversionDownloadStrategy
-  def quiet_safe_system(*args)
-    super(*args + ["--username", "anonymous"])
-  end
-end
-
 class MarosMeszaros < Formula
   desc "Maros and Meszaros SIF problems"
-  homepage "http://www.cuter.rl.ac.uk/Problems/marmes.shtml"
-  url "https://github.com/optimizers/maros-meszaros-mirror/archive/v0.1.tar.gz"
-  sha256 "eddc5e831f14be08e823d464ccb78834ef9e9120211f00f7724c0258c64fc14c"
-  head "https://ccpforge.cse.rl.ac.uk/svn/cutest/marosmeszaros/trunk", :using => AnonymousSubversionDownloadStrategy
+  homepage "https://bitbucket.org/optrove/maros-meszaros"
+  url "https://bitbucket.org/optrove/maros-meszaros/get/v0.1.tar.gz"
+  sha256 "4ac6b28429c22b87a8ab402a7927698220df575cf9b8966f436f0d82c3ccca16"
+  revision 1
+
+  head "https://optimizer@bitbucket.org/optrove/maros-meszaros.git"
 
   keg_only "this formula only installs data files"
 

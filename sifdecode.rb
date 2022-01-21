@@ -3,12 +3,12 @@ class Sifdecode < Formula
   homepage "https://github.com/ralna/SIFDecode/wiki"
   url "https://github.com/ralna/SIFDecode/archive/v2.0.1.tar.gz"
   sha256 "c2d92e899bdcc65258f37e09ddf31904ac9ebed80b50170b1cfd1f40997f5d12"
+  revision 1
+
   head "https://github.com/ralna/SIFDecode.git"
 
-  option "with-pgi", "build with Portland Group compiler"
-
   depends_on "optimizers/cutest/archdefs" => :build
-  depends_on "gcc" if build.without? "pgi"
+  depends_on "gcc"
   env :std
 
   def install
@@ -17,7 +17,7 @@ class Sifdecode < Formula
     if OS.mac?
       machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 13] : %w[mac 12]
       arch = "osx"
-      comp = build.with?("pgi") ? "5" : "2"
+      comp = "2"
       Pathname.new("sifdecode.input").write <<~EOF
         #{key}
         #{comp}
@@ -26,7 +26,7 @@ class Sifdecode < Formula
     else
       machine = "pc64"
       arch = "lnx"
-      comp = build.with?("pgi") ? "7" : "4"
+      comp = "5"
       Pathname.new("sifdecode.input").write <<~EOF
         6
         2
@@ -48,7 +48,7 @@ class Sifdecode < Formula
     doc.install_symlink Dir["#{libexec}/doc/*"]
     lib.install_symlink Dir["#{libexec}/objects/#{machine}.#{arch}.gfo/double/*.a"]
 
-    compiler = build.with?("pgi") ? "pgf" : "gfo"
+    compiler = "gfo"
     (prefix/"sifdecode.bashrc").write <<~EOF
       export SIFDECODE=#{opt_libexec}
       export MYARCH=#{machine}.#{arch}.#{compiler}
@@ -60,10 +60,11 @@ class Sifdecode < Formula
     EOF
   end
 
-  def caveats; <<~EOS
-    In your ~/.bashrc, add the line
-    . #{prefix}/sifdecode.bashrc
-  EOS
+  def caveats
+    <<~EOS
+      In your ~/.bashrc, add the line
+      . #{prefix}/sifdecode.bashrc
+    EOS
   end
 
   test do
@@ -76,6 +77,5 @@ class Sifdecode < Formula
     cd testpath do
       system "#{bin}/sifdecoder", "#{opt_libexec}/sif/ROSENBR.SIF"
     end
-    ohai "Test results are in ~/Library/Logs/Homebrew/sifdecode."
   end
 end
