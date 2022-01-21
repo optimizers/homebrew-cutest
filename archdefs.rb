@@ -3,6 +3,8 @@ class Archdefs < Formula
   homepage "https://github.com/ralna/ARCHDefs/wiki"
   url "https://github.com/ralna/ARCHDefs/archive/v2.0.3.tar.gz"
   sha256 "f57f7c2912187c60a988c5a5707bce783ff93d414a46dd1dc51657a4bba54fbe"
+  revision 1
+
   head "https://github.com/ralna/ARCHDefs.git"
 
   keg_only "this formula only installs data files"
@@ -22,9 +24,7 @@ class Archdefs < Formula
     if ENV["CUTEST_GFORTRAN"]
       inreplace "compiler.#{mach}.#{arch}.gfo", "FORTRAN='gfortran'", "FORTRAN=#{ENV["CUTEST_GFORTRAN"]}"
     end
-    if ENV["CUTEST_GCC"]
-      inreplace "ccompiler.#{mach}.#{arch}.gcc", "CC=gcc", "CC=#{ENV["CUTEST_GCC"]}"
-    end
+    inreplace "ccompiler.#{mach}.#{arch}.gcc", "CC=gcc", "CC=#{ENV["CUTEST_GCC"]}" if ENV["CUTEST_GCC"]
 
     libexec.install Dir["ccompiler*"], Dir["compiler*"], Dir["system*"]
     Pathname.new("#{prefix}/archdefs.bashrc").write <<~EOF
@@ -32,10 +32,11 @@ class Archdefs < Formula
     EOF
   end
 
-  def caveats; <<~EOS
-    In your ~/.bashrc, add the line
-    . #{prefix}/archdefs.bashrc
-  EOS
+  def caveats
+    <<~EOS
+      In your ~/.bashrc, add the line
+      . #{prefix}/archdefs.bashrc
+    EOS
   end
 
   test do
