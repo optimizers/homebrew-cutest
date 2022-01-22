@@ -7,6 +7,13 @@ class Archdefs < Formula
 
   head "https://github.com/ralna/ARCHDefs.git"
 
+  bottle do
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/archdefs-2.0.3_2"
+    sha256 cellar: :any_skip_relocation, big_sur:      "b087b6d111c4fabe649b5f7b8429e3fed6ebcfb6a529423619b8c064a6daf95b"
+    sha256 cellar: :any_skip_relocation, catalina:     "b566fbf0348bb5504201885d1c19f5ec4038d81f72aa8a6c0ec58a69be169c14"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "b296837114cb9ad69cdd07f8e5b9764b88516f04cb523f8d4e860f39bda9fb81"
+  end
+
   keg_only "this formula only installs data files"
 
   def install
