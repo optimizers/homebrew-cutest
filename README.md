@@ -1,16 +1,19 @@
 # Homebrew's [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) Tap
 
-[![Build Status](https://travis-ci.org/optimizers/homebrew-cutest.svg?branch=master)](https://travis-ci.org/optimizers/homebrew-cutest)
-[![CircleCI](https://circleci.com/gh/optimizers/homebrew-cutest/tree/master.svg?style=svg)](https://circleci.com/gh/optimizers/homebrew-cutest/tree/master)
+[![brew test-bot](https://github.com/optimizers/homebrew-cutest/actions/workflows/tests.yml/badge.svg)](https://github.com/optimizers/homebrew-cutest/actions/workflows/tests.yml)
 
 ## For the Impatient
 
     brew tap optimizers/cutest
-    brew install cutest [--with-matlab] [--without-single] [--with-pgi]
+    brew install cutest
     brew install mastsif  # If you want the whole SIF collection.
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
+
+It is also possible to build the Matlab interface to CUTEst:
+
+    brew install cutest --with-matlab
 
 ## What's This?
 
@@ -19,6 +22,7 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 ### Advantages
 
 * One simple command to install each tool: `brew install tool`
+* Precompiled binaries are available for Linux and macOS
 * No need to tweak your `PATH`, `LD_LIBRARY_PATH`, `MANPATH` and so forth
 * `libsifdecode`, `libcutest` and `libcutest_single` are available directly in `/usr/local/lib` so linking them in is a simple matter of adding `-lsifdecode`, `-lcutest` or `-lcutest_single`
 * installation of a Matlab-friendly compiler is taken in charge.
@@ -42,10 +46,9 @@ Now we can install CUTEst and, at your option, the entire SIF collection:
     brew install maros_mezaros #If you want the Maros-Mezaros collection
     brew install netlib #If you want the NETLIB LP collection
 
-Both `maros_mezaros` and `netlib` commands only install data files.  
+The `mastsif`, `maros_mezaros` and `netlib` formulae only install data files.
 
 The option `--without-single` will prevent the single precision library from being built.
-The option `--with-pgi` will build CUTEst and SIFDecode with the PGI compilers, which are assumed to be available.
 The last thing to do is to add all the requisite environment variables to our `~/.bashrc`. Each package provides a mini `bashrc` that contains the relevant definitions and can be sourced. They can all be sourced in one command:
 
     for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
