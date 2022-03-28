@@ -1,4 +1,4 @@
-# Homebrew's [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) Tap
+# Homebrew's [CUTEst](https://github.com/ralna/CUTEst) Tap
 
 [![brew test-bot](https://github.com/optimizers/homebrew-cutest/actions/workflows/tests.yml/badge.svg)](https://github.com/optimizers/homebrew-cutest/actions/workflows/tests.yml)
 
@@ -17,7 +17,7 @@ It is also possible to build the Matlab interface to CUTEst:
 
 ## What's This?
 
-This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew-tap) allows you to install [CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki) and related tools inside the control of Homebrew. This has advantages and disadvantages.
+This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew-tap) allows you to install [CUTEst](https://github.com/ralna/CUTEst) and related tools inside the control of Homebrew. This has advantages and disadvantages.
 
 ### Advantages
 
