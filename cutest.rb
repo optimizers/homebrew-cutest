@@ -67,7 +67,7 @@ class Cutest < Formula
     if OS.mac?
       so = "dylib"
       all_load = "-Wl,-all_load"
-      noall_load = "-Wl,-noall_load"
+      noall_load = ""
       extra = ["-Wl,-undefined", "-Wl,dynamic_lookup", "-headerpad_max_install_names"]
     else
       so = "so"
