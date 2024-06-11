@@ -1,9 +1,8 @@
 class Archdefs < Formula
   desc "Architecture definition files for CUTEst"
   homepage "https://github.com/ralna/ARCHDefs/wiki"
-  url "https://github.com/ralna/ARCHDefs/archive/v2.0.3.tar.gz"
-  sha256 "f57f7c2912187c60a988c5a5707bce783ff93d414a46dd1dc51657a4bba54fbe"
-  revision 2
+  url "https://github.com/ralna/ARCHDefs/archive/refs/tags/v2.2.6.tar.gz"
+  sha256 "f65444a5f85ca42664eaeb2aecae3b76cffdfde60d481298f5b06084044801df"
 
   head "https://github.com/ralna/ARCHDefs.git"
 
@@ -47,6 +46,6 @@ class Archdefs < Formula
   end
 
   test do
-    File.file? opt_libexec/"compiler.mac.osx.gfo"
+    File.file? opt_libexec/"compiler.mac64.osx.gfo"
   end
 end
