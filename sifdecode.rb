@@ -7,10 +7,10 @@ class Sifdecode < Formula
   head "https://github.com/ralna/SIFDecode.git"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/sifdecode-2.0.1_2"
-    sha256 cellar: :any,                 big_sur:      "c781d13ea2ece599788b1caae6151c7401e01cec1f26cb3ad4f8f87175be8e1b"
-    sha256 cellar: :any,                 catalina:     "e3369da43f231fa1e82e9b1245d7ce93527e7d79beed3750ba8853b85d9fda43"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "26b481b4b7b26ef599d4602a5d5019d4b2af2cd904375f485dc5be186a0b1c63"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/sifdecode-2.4.1"
+    sha256 cellar: :any,                 arm64_sonoma: "6f8f28db0c9e1748ee87263b0c4ed328992f2a766e4989cd27b12e88d4f7684f"
+    sha256 cellar: :any,                 ventura:      "06ef13a10255d8fe074052a45a919662fa42ad51d62d7adcbfcb60d7503c4f70"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6730bf77f9aecd62b1efc76cd7d6f9d36a6a0ffa89deef41cf5329e64db46f49"
   end
 
   depends_on "optimizers/cutest/archdefs" => :build
