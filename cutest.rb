@@ -1,9 +1,8 @@
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "https://github.com/ralna/CUTEst/wiki"
-  url "https://github.com/ralna/CUTEst/archive/v2.0.2.tar.gz"
-  sha256 "16ff35ff5956dfc6715250a26f7e5fa171b166fea5a60aeee2d6e232b22de954"
-  revision 2
+  url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.0.57.tar.gz"
+  sha256 "279d4350cc3044e2450593993131d41dab53da15304575d61b1ceb03b5c05107"
 
   head "https://github.com/ralna/CUTEst.git"
 
@@ -16,6 +15,7 @@ class Cutest < Formula
 
   option "with-matlab", "Compile with Matlab support"
   option "without-single", "Compile without single support"
+  option "without-quadruple", "Compile without quadruple support"
 
   depends_on "gcc"
 
@@ -27,47 +27,51 @@ class Cutest < Formula
   patch :DATA
 
   def install
-    ENV.deparallelize
     toolset = build.with?("matlab") ? "1" : "2"
     single = build.with?("single") ? "y" : "n"
-    precisions = build.with?("single") ? ["single", "double"] : ["double"]
+    quadruple = build.with?("quadruple") ? "y" : "n"
+    precisions = ["double"]
+    build.with?("single") && precisions.append("single")
+    build.with?("quadruple") && precisions.append("quadruple")
 
     if OS.mac?
-      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 13] : %w[mac 12]
+      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 2] : %w[mac 4]
       arch = "osx"
-      fcomp = "2"
-      ccomp = "5"
+      fcomp = "4"
+      ccomp = "3"
       Pathname.new("cutest.input").write <<~EOF
         #{key}
-        #{fcomp}
+        n#{fcomp}
         #{toolset}
         #{ccomp}
-        nnyd#{single}
+        nnyd#{single}#{quadruple}
       EOF
     else
       machine = "pc64"
       arch = "lnx"
-      fcomp = "5"
+      fcomp = "8"
       ccomp = "7"
       Pathname.new("cutest.input").write <<~EOF
-        6
-        2
-        #{fcomp}
+        1
+        1
+        n#{fcomp}
         #{toolset}
         #{ccomp}
-        nnyd#{single}
+        nnyd#{single}#{quadruple}
       EOF
     end
 
     ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
     ENV["SIFDECODE"] = Formula["sifdecode"].opt_libexec
-    system "./install_cutest < cutest.input"
+    ENV.deparallelize do
+      system "./install_cutest < cutest.input"
+    end
 
     # Build shared libraries.
     if OS.mac?
       so = "dylib"
       all_load = "-Wl,-all_load"
-      noall_load = "-Wl,-noall_load"
+      noall_load = ""
       extra = ["-Wl,-undefined", "-Wl,dynamic_lookup", "-headerpad_max_install_names"]
     else
       so = "so"
@@ -103,6 +107,11 @@ class Cutest < Formula
       ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/single/libcutest.a", "#{lib}/libcutest_single.a"
       ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/single/libcutest_single.#{so}",
             "#{lib}/libcutest_single.#{so}"
+    end
+    if build.with? "quadruple"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/quadruple/libcutest.a", "#{lib}/libcutest_quadruple.a"
+      ln_sf "#{libexec}/objects/#{machine}.#{arch}.#{compiler}/quadruple/libcutest_quadruple.#{so}",
+            "#{lib}/libcutest_quadruple.#{so}"
     end
 
     s = <<~EOS
