@@ -1,9 +1,8 @@
 class Sifdecode < Formula
   desc "SIF Decoder"
   homepage "https://github.com/ralna/SIFDecode/wiki"
-  url "https://github.com/ralna/SIFDecode/archive/v2.0.1.tar.gz"
-  sha256 "c2d92e899bdcc65258f37e09ddf31904ac9ebed80b50170b1cfd1f40997f5d12"
-  revision 2
+  url "https://github.com/ralna/SIFDecode/archive/refs/tags/v2.4.1.tar.gz"
+  sha256 "f1f873b3b36233a893d6d593fcd3264cd5310e41916d30206a16f787b62c7f88"
 
   head "https://github.com/ralna/SIFDecode.git"
 
@@ -19,31 +18,31 @@ class Sifdecode < Formula
   env :std
 
   def install
-    ENV.deparallelize
-
     if OS.mac?
-      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 13] : %w[mac 12]
+      machine, key = Hardware::CPU.is_64_bit? ? %w[mac64 2] : %w[mac 4]
       arch = "osx"
-      comp = "2"
+      comp = "4"
       Pathname.new("sifdecode.input").write <<~EOF
         #{key}
-        #{comp}
-        nny
+        n#{comp}
+        ny
       EOF
     else
       machine = "pc64"
       arch = "lnx"
-      comp = "5"
+      comp = "8"
       Pathname.new("sifdecode.input").write <<~EOF
-        6
-        2
-        #{comp}
-        nny
+        1
+        1
+        n#{comp}
+        ny
       EOF
     end
 
     ENV["ARCHDEFS"] = Formula["archdefs"].opt_libexec
-    system "./install_sifdecode < sifdecode.input"
+    ENV.deparallelize do
+      system "./install_sifdecode < sifdecode.input"
+    end
 
     # We only want certain links in /usr/local/bin.
     libexec.install Dir["*"]
