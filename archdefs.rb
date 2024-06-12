@@ -1,8 +1,8 @@
 class Archdefs < Formula
   desc "Architecture definition files for CUTEst"
   homepage "https://github.com/ralna/ARCHDefs/wiki"
-  url "https://github.com/ralna/ARCHDefs/archive/refs/tags/v2.2.6.tar.gz"
-  sha256 "f65444a5f85ca42664eaeb2aecae3b76cffdfde60d481298f5b06084044801df"
+  url "https://github.com/ralna/ARCHDefs/archive/refs/tags/v2.2.7.tar.gz"
+  sha256 "74ff6cf803a02a3bd2ab8479cd45e98e443351b8b5f78320f19d3b4ec0a5ba0d"
 
   head "https://github.com/ralna/ARCHDefs.git"
 
