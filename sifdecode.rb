@@ -1,8 +1,8 @@
 class Sifdecode < Formula
   desc "SIF Decoder"
   homepage "https://github.com/ralna/SIFDecode/wiki"
-  url "https://github.com/ralna/SIFDecode/archive/refs/tags/v2.4.1.tar.gz"
-  sha256 "f1f873b3b36233a893d6d593fcd3264cd5310e41916d30206a16f787b62c7f88"
+  url "https://github.com/ralna/SIFDecode/archive/refs/tags/v2.4.2.tar.gz"
+  sha256 "deea88c087563a49602ec2e758aeb3a75a5b92dbd449ecef14b87b29ff294287"
 
   head "https://github.com/ralna/SIFDecode.git"
 
