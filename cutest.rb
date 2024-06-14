@@ -7,8 +7,8 @@ class Cutest < Formula
   head "https://github.com/ralna/CUTEst.git"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/cutest-2.0.57"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "2fa94615a3182eac6e9f656a925ac9dab6a142bf0547b9c1dc3606afb534d1a1"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/cutest-2.1.0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "604b12791912e0acccbda1110e9eb6778223d1d3a5cb79464beb2f1c87119fb4"
   end
 
   option "with-matlab", "Compile with Matlab support"
