@@ -4,7 +4,7 @@ class GslAT1 < Formula
   url "https://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz"
   mirror "https://ftpmirror.gnu.org/gsl/gsl-1.16.tar.gz"
   sha256 "73bc2f51b90d2a780e6d266d43e487b3dbd78945dd0b04b14ca5980fe28d2f53"
-  revision 2
+  revision 3
 
   bottle do
     root_url "https://github.com/optimizers/homebrew-cutest/releases/download/gsl@1-1.16_2"
