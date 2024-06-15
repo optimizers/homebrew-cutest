@@ -7,10 +7,10 @@ class GslAT1 < Formula
   revision 3
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/gsl@1-1.16_2"
-    sha256 cellar: :any,                 big_sur:      "a709fa1756f5ed57845d60e5cb059b8ebd862facadedcdd5aa5778abc395fc76"
-    sha256 cellar: :any,                 catalina:     "74325edeb3a2d7fcfbffe89f16567955ee2c8a5f4dd1f9784108765c2d4fb3a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "7c1d37552bdbf396eb51b583e8cfbaf76b68457a13e345f4d616e820906b3275"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/gsl@1-1.16_3"
+    sha256 cellar: :any,                 arm64_sonoma: "5566635b10b1b81d41a1ae12e1426c6b2b785be3a6879b372b971f896064dfaf"
+    sha256 cellar: :any,                 ventura:      "56b911175fbfbea45720141466b8016090584d03feaaa21e4ffee02289749d9a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "9f3ed11e1252bafff9f8c701b6331c11cfab7715887e646965522ec108d3ed58"
   end
 
   keg_only :versioned_formula
