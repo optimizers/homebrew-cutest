@@ -3,7 +3,7 @@ class Cutest < Formula
   homepage "https://github.com/ralna/CUTEst/wiki"
   url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.1.0.tar.gz"
   sha256 "83557557a8c6b174e817116ddc056f4a321bc6651719b25925fff399e44b5997"
-  revision 1
+  revision 2
 
   head "https://github.com/ralna/CUTEst.git"
 
