@@ -3,7 +3,7 @@ class Cutest < Formula
   homepage "https://github.com/ralna/CUTEst/wiki"
   url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.1.0.tar.gz"
   sha256 "83557557a8c6b174e817116ddc056f4a321bc6651719b25925fff399e44b5997"
-  revision 2
+  revision 3
 
   head "https://github.com/ralna/CUTEst.git"
 
@@ -71,13 +71,13 @@ class Cutest < Formula
     # Build shared libraries.
     if OS.mac?
       so = "dylib"
-      all_load = "-Wl,-all_load"
-      noall_load = ""
+      all_load = ["-Wl,-all_load"]
+      noall_load = []
       extra = ["-Wl,-undefined", "-Wl,dynamic_lookup", "-headerpad_max_install_names"]
     else
       so = "so"
-      all_load = "-Wl,-whole-archive"
-      noall_load = "-Wl,-no-whole-archive"
+      all_load = ["-Wl,-whole-archive"]
+      noall_load = ["-Wl,-no-whole-archive"]
       extra = []
     end
     compiler = "gfo"
@@ -85,7 +85,7 @@ class Cutest < Formula
       cd "objects/#{machine}.#{arch}.#{compiler}/#{prec}" do
         Dir["*.a"].each do |l|
           lname = File.basename(l, ".a") + "_#{prec}.#{so}"
-          system "gfortran", "-fPIC", "-shared", all_load, l, noall_load, "-o", lname, *extra
+          system "gfortran", "-fPIC", "-shared", *all_load, l, *noall_load, "-o", lname, *extra
         end
       end
     end
