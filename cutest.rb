@@ -3,6 +3,7 @@ class Cutest < Formula
   homepage "https://github.com/ralna/CUTEst/wiki"
   url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.5.7.tar.gz"
   sha256 "8d8dbb60fcbf7576130e648446d7b401a50c1583693a19f3acc8533602cfda8f"
+  revision 1
 
   head "https://github.com/ralna/CUTEst.git", branch: "master"
 
@@ -10,8 +11,6 @@ class Cutest < Formula
     root_url "https://github.com/optimizers/homebrew-cutest/releases/download/cutest-2.5.7"
     sha256 cellar: :any, ventura: "1eab74c2a4217f761bd818f1653f52f0746aa6a1f44d92faa55780303935f587"
   end
-
-  option "with-shared", "Compile shared libraries; users will have to use CUTEst trampoline"
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
@@ -26,16 +25,26 @@ class Cutest < Formula
       -Dmodules=true
       -Dtests=true
     ]
-    meson_args << "-Ddefault_library=shared" if build.with? "shared"
-    meson_args << "-Dquadruple=true" if build.without? "shared"
     system "meson",
            "setup",
            "build",
+           "-Dquadruple=true",
            *meson_args,
            *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
     system "meson", "test", "-C", "build"
+
+    system "meson",
+           "setup",
+           "build_shared",
+           "-Dquadruple=true",
+           "-Ddefault_library=shared",
+           *meson_args,
+           *std_meson_args
+    system "meson", "compile", "-C", "build_shared", "--verbose"
+    system "meson", "install", "-C", "build_shared"
+    system "meson", "test", "-C", "build_shared"
 
     # TODO: runcutest must be adapted
     # bin.install "bin/runcutest"
