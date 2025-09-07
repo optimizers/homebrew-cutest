@@ -8,8 +8,8 @@ class Cutest < Formula
   head "https://github.com/ralna/CUTEst.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/cutest-2.5.7"
-    sha256 cellar: :any, ventura: "1eab74c2a4217f761bd818f1653f52f0746aa6a1f44d92faa55780303935f587"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/cutest-2.5.7_1"
+    sha256 cellar: :any, ventura: "74f46cfb6110e0f48c25978b45d7d88b5a680b463e2ea13c3d19e3e4763f5549"
   end
 
   depends_on "meson" => :build
