@@ -3,7 +3,7 @@ class Sifdecode < Formula
   homepage "https://github.com/ralna/SIFDecode/wiki"
   url "https://github.com/ralna/SIFDecode/archive/refs/tags/v2.6.4.tar.gz"
   sha256 "a419feb753195bd5e32a2f9b96785450d2a4e280280c349cce1dfd93bdc692e5"
-  revision 1
+  revision 2
 
   head "https://github.com/ralna/SIFDecode.git", branch: "master"
 
