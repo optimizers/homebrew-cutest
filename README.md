@@ -7,7 +7,7 @@
     brew tap optimizers/cutest
     brew install cutest
     brew install mastsif  # If you want the whole SIF collection.
-    for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
+    for f in "mastsif" "sifdecode" "cutest"; do \
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
 
@@ -48,10 +48,9 @@ Now we can install CUTEst and, at your option, the entire SIF collection:
 
 The `mastsif`, `maros_mezaros` and `netlib` formulae only install data files.
 
-The option `--without-single` will prevent the single precision library from being built.
 The last thing to do is to add all the requisite environment variables to our `~/.bashrc`. Each package provides a mini `bashrc` that contains the relevant definitions and can be sourced. They can all be sourced in one command:
 
-    for f in "archdefs" "mastsif" "sifdecode" "cutest"; do \
+    for f in "mastsif" "sifdecode" "cutest"; do \
       echo ". $(brew --prefix $f)/$f.bashrc" >> ~/.bashrc; \
     done
 
@@ -79,13 +78,10 @@ If you so desire, you may build directly from the latest sources in the Subversi
 
 ## Partial Installs
 
-You can install only `archdefs`, only `sifdecode` or only `mastsif` using the
+You can install only `sifdecode` or only `mastsif` using the
 command
 
     brew install <formula>
-
-Because `archdefs` is a prerequisite of `sifdecode`, running `brew install
-sifdecode` will also install `archdefs`.
 
 Enjoy!
 
