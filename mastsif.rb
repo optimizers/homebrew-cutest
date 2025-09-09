@@ -7,10 +7,10 @@ class Mastsif < Formula
   head "https://bitbucket.org/optrove/sif.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/mastsif-0.5_2"
-    sha256 cellar: :any_skip_relocation, big_sur:      "ef83954ba6ddcd0817c4dcb2755abab5177be52ce86ae264d1a4c4fdcc4f1aac"
-    sha256 cellar: :any_skip_relocation, catalina:     "77681296458be8aa77d320b4ab10b5392b566bbb4933f6591004da21bd136711"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "868c58e1e757e0a5e3be1212854dc770a048eaf1a52357d99ac43ecdba38e5b2"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/mastsif-2.5.2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4cf8a6bd777de0c870baf342ee7e924c1605a72835d9bdd71a37f5dd9f1f8b87"
+    sha256 cellar: :any_skip_relocation, ventura:       "5abcbc290b1778a41b2ce3e035edf944b26eccb457a5d544b2fdc719fa9a5309"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "96694f8bdca3a0daab5539e95739b389c0051fc3b6c57b5e63d5e1ef413b10cf"
   end
 
   keg_only "this formula only installs data files"
