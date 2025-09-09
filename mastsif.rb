@@ -1,11 +1,10 @@
 class Mastsif < Formula
   desc "SIF problem collection"
   homepage "https://bitbucket.org/optrove/sif"
-  url "https://bitbucket.org/optrove/sif/get/v0.5.tar.gz"
-  sha256 "d2a7e0956e5216a4ad2a51a3a8219711e5f4f729cb3f044d4133d8fb19d0172d"
-  revision 2
+  url "https://bitbucket.org/optrove/sif/get/v2.5.2.tar.gz"
+  sha256 "cfc7066c1e3d2026a00529aa7a857a0853fb148ee62231ea4d12e7b0044d23e8"
 
-  head "https://bitbucket.org/optrove/sif.git"
+  head "https://bitbucket.org/optrove/sif.git", branch: "master"
 
   bottle do
     root_url "https://github.com/optimizers/homebrew-cutest/releases/download/mastsif-0.5_2"
