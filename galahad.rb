@@ -6,6 +6,13 @@ class Galahad < Formula
 
   head "https://github.com/ralna/GALAHAD.git", branch: "master"
 
+  bottle do
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/galahad-5.3.0"
+    sha256 cellar: :any, arm64_sequoia: "4f6bcfaee9349c6f54bc32bbf62ad78cc84ba47a878bfe3d640d495367464ac3"
+    sha256 cellar: :any, ventura:       "053ee3e2e9c4af94044c301b9eb5c870e2bf9407da58cf75fb8ebb243172f97a"
+    sha256               x86_64_linux:  "b871225f54183309d6a088574de15a43a9fc53b9fff819ed7fc50b44afd4d5e1"
+  end
+
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "gcc"
