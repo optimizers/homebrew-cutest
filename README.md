@@ -17,7 +17,7 @@ This [Homebrew](http://brew.sh) [tap](https://github.com/mxcl/homebrew/wiki/brew
 * One simple command to install each tool: `brew install tool`
 * Precompiled binaries are available for Linux and macOS
 * No need to tweak your `PATH`, `LD_LIBRARY_PATH`, `MANPATH` and so forth
-* `libsifdecode`, `libcutest_double`, `libcutest_single` and `libcutest_quadruple` are available directly in `/opt/homebrew/lib` so linking them in is a simple matter of adding `-lsifdecode`, `-lcutest_double`, `-lcutest_single` or `libcutest_quadruple`
+* `libcutest_double`, `libcutest_single` and `libcutest_quadruple` are available directly in `/opt/homebrew/lib` so linking them in is a simple matter of adding `-lcutest_double`, `-lcutest_single` or `libcutest_quadruple`
 
 ### Disadvantages
 
