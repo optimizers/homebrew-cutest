@@ -1,9 +1,8 @@
 class Sifdecode < Formula
   desc "SIF Decoder"
   homepage "https://github.com/ralna/SIFDecode/wiki"
-  url "https://github.com/ralna/SIFDecode/archive/refs/tags/v2.6.4.tar.gz"
-  sha256 "a419feb753195bd5e32a2f9b96785450d2a4e280280c349cce1dfd93bdc692e5"
-  revision 2
+  url "https://github.com/ralna/SIFDecode/archive/refs/tags/v3.0.0.tar.gz"
+  sha256 "a4e8ad664247174c1005448eeabf2dfccc96b3092b0bbfd12bed6ad35e169414"
 
   head "https://github.com/ralna/SIFDecode.git", branch: "master"
 
@@ -32,9 +31,9 @@ class Sifdecode < Formula
 
   test do
     cd testpath do
-      system "#{bin}/sifdecoder_standalone", "-sp", "#{opt_libexec}/sif/ROSENBR.SIF"
-      system "#{bin}/sifdecoder_standalone", "-dp", "#{opt_libexec}/sif/ROSENBR.SIF"
-      system "#{bin}/sifdecoder_standalone", "-qp", "#{opt_libexec}/sif/ROSENBR.SIF"
+      system "#{bin}/sifdecoder", "-sp", "#{opt_libexec}/sif/ROSENBR.SIF"
+      system "#{bin}/sifdecoder", "-dp", "#{opt_libexec}/sif/ROSENBR.SIF"
+      system "#{bin}/sifdecoder", "-qp", "#{opt_libexec}/sif/ROSENBR.SIF"
     end
   end
 end
