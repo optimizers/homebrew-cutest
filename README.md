@@ -7,6 +7,7 @@
     brew tap optimizers/cutest
     brew install cutest
     brew install mastsif  # If you want the whole SIF collection.
+    cat "$(brew --prefix mastsif)/mastsif.bashrc" >> ~/.bashrc
 
 ## What's This?
 
