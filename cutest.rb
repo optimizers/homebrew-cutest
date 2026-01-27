@@ -1,8 +1,8 @@
 class Cutest < Formula
   desc "Constrained and Unconstrained Testing Environment on steroids"
   homepage "https://github.com/ralna/CUTEst/wiki"
-  url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.5.8.tar.gz"
-  sha256 "e01ef55e3ec99fbd8b5a7989fd7e4f234ce3bef239a4685a397cbea640492fb1"
+  url "https://github.com/ralna/CUTEst/archive/refs/tags/v2.6.0.tar.gz"
+  sha256 "165a7127f45a95ab68bf449ae0f15d2772e61ed8232de8d7c3263993477fff94"
 
   head "https://github.com/ralna/CUTEst.git", branch: "master"
 
