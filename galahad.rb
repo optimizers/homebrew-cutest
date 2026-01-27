@@ -1,8 +1,8 @@
 class Galahad < Formula
   desc "Library of modern Fortran modules for nonlinear optimization"
   homepage "https://github.com/ralna/GALAHAD"
-  url "https://github.com/ralna/GALAHAD/archive/refs/tags/v5.3.0.tar.gz"
-  sha256 "132be2493829afa4b8d0dc60f8e8dd5f9ceaf30a4df58db49e5efade5ffc7ce5"
+  url "https://github.com/ralna/GALAHAD/archive/refs/tags/v5.4.0.tar.gz"
+  sha256 "ba37233b7bafa66bc2a65934003ee782b9bc8b1ab83ef7d43955fc35d3dff5d1"
 
   head "https://github.com/ralna/GALAHAD.git", branch: "master"
 
