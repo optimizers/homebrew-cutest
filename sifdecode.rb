@@ -7,9 +7,11 @@ class Sifdecode < Formula
   head "https://github.com/ralna/SIFDecode.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/sifdecode-3.0.0"
-    sha256 cellar: :any,                 arm64_sequoia: "ab2794cd5bfb12fd868670440a3ebbc8e26646aef9cdad7ab141f45a9f95e618"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3078561729a8a35b88bcd9a9ab4eb1f6a8612dab60f3cb8391de70924d1dbeae"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/sifdecode-3.1.0"
+    sha256 cellar: :any,                 arm64_tahoe:   "983cee271938950ffbcdd58adf928444179bc9d9a21582ce7e4e7b1e2192b049"
+    sha256 cellar: :any,                 arm64_sequoia: "b3458eda1faa6ab82a5f4b15e21c91ed103d9f4399a8b03a113f39e18d96aafa"
+    sha256 cellar: :any,                 arm64_sonoma:  "2b301bdbb23afe3add7fd3de862b38cc10fa1bd1a1258bf268d7d7abb5585152"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "80cf18572151b4e1dfe05580bfe5acb44520376e4d3c12c8a49729025d7dcd57"
   end
 
   depends_on "meson" => :build
