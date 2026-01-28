@@ -7,10 +7,11 @@ class Galahad < Formula
   head "https://github.com/ralna/GALAHAD.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/galahad-5.3.0"
-    sha256 cellar: :any, arm64_sequoia: "4f6bcfaee9349c6f54bc32bbf62ad78cc84ba47a878bfe3d640d495367464ac3"
-    sha256 cellar: :any, ventura:       "053ee3e2e9c4af94044c301b9eb5c870e2bf9407da58cf75fb8ebb243172f97a"
-    sha256               x86_64_linux:  "b871225f54183309d6a088574de15a43a9fc53b9fff819ed7fc50b44afd4d5e1"
+    root_url "https://github.com/optimizers/homebrew-cutest/releases/download/galahad-5.4.0"
+    sha256 cellar: :any, arm64_tahoe:   "3e379360170c7a9034532dc3af65c370519442ece06e77b6bd990da98a2216ad"
+    sha256 cellar: :any, arm64_sequoia: "4a03ef606c83b205c7a9953b74434596e37937e9002f116cd3fd227fb99f716c"
+    sha256 cellar: :any, arm64_sonoma:  "2659555b0dff4b88baccbef1a000a976d186cfa863af6b66c7ad67f8bbc82949"
+    sha256               x86_64_linux:  "939bf7b8ce315978342badd82892bc39472f9f03de8b02f5ef867ee966c1f702"
   end
 
   depends_on "meson" => :build
